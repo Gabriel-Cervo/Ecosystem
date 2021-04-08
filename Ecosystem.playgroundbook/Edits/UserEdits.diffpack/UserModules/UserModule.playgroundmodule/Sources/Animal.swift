@@ -5,6 +5,9 @@ public class Animal {
     var x: CGFloat
     var y: CGFloat
     var size: CGFloat
+    var energy: Int = 50
+    
+    var state: AnimalState = .hungry
     
     var vx: CGFloat = 0
     var vy: CGFloat = 0
@@ -28,4 +31,26 @@ public class Animal {
         shape.position = CGPoint(x: x, y: y)
         return shape
     }
+    
+    func getState() -> AnimalState {
+        return energy < 50 ? .hungry : .tired
+    }
+    
+    func eat() {
+        energy += 15
+    }
+    
+    func updateState() {
+        energy -= 1
+        if energy < 50 && state == .tired {
+            state = .hungry
+        } else if energy >= 50 && state == .hungry {
+            state = .tired
+        }
+    }
+}
+
+public enum AnimalState {
+    case hungry
+    case tired
 }

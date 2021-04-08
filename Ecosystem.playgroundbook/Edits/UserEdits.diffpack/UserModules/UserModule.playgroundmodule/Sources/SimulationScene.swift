@@ -1,7 +1,9 @@
 import SpriteKit
 public class SimulationScene: SKScene {
     var plants: [Plant] = []
-    let numOfPlants: Int = 35
+    var herbivores: [Animal] = []
+    var numOfPlants: Int = 35
+    var numOfHerbivores: Int = 5
     
     
     public override func sceneDidLoad() {
@@ -10,6 +12,7 @@ public class SimulationScene: SKScene {
     
     public override func didChangeSize(_ oldSize: CGSize) {
         drawPlants()
+        drawHerbivores()
     }
     
     public func drawPlants() {
@@ -26,14 +29,38 @@ public class SimulationScene: SKScene {
         
     }
     
+    public func drawHerbivores() {
+        herbivores = []
+        for i in 0..<numOfHerbivores {
+            var animal = Animal()
+            if self.size.width > 0 {
+                animal.x = CGFloat.random(in: 0..<size.width)
+                animal.y = CGFloat.random(in: 0..<size.height)
+            }
+            herbivores.append(animal)
+        }
+        
+    }
+    
     public override func update(_ currentTime: TimeInterval) {
         draw()
+        updateAnimalsState()
     }
     
     public func draw() {
         self.removeAllChildren()
         for i in 0..<numOfPlants {
             self.addChild(plants[i].getShape())
+        }
+        
+        for i in 0..<numOfHerbivores {
+            self.addChild(herbivores[i].getShape())
+        }
+    }
+    
+    public func updateAnimalsState() {
+        for i in 0..<numOfHerbivores {
+            herbivores[i].updateState()
         }
     }
 }
