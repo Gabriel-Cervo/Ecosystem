@@ -5,12 +5,11 @@ public class Animal {
     var x: CGFloat
     var y: CGFloat
     var size: CGFloat
+    var name: String = "herbivore"
+    var isMovingRandonly: Bool = false
     var energy: Int = 50
     
     var state: AnimalState = .hungry
-    
-    var vx: CGFloat = 0
-    var vy: CGFloat = 0
     
     init() {
         x = 0
@@ -29,6 +28,7 @@ public class Animal {
         shape.fillColor = #colorLiteral(red: 0.3248277307, green: 0.8369095325, blue: 0.9915711284, alpha: 1.0)
         shape.lineWidth = 0
         shape.position = CGPoint(x: x, y: y)
+        shape.name = name
         return shape
     }
     
@@ -39,6 +39,14 @@ public class Animal {
     func eat() {
         energy += 15
     }
+    
+//      func moveRandonly() {
+//          if !isMovingRandonly {
+//              let whereToGo = UIBezierPath()
+//              whereToGo.move(to: CGPoint(x))
+//              isMovingRandonly = true
+//          }
+//      }
     
     func updateState() {
         energy -= 1
