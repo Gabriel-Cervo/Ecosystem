@@ -66,11 +66,18 @@ public class SimulationScene: SKScene {
     }
     
     func lookForPlants(for herbivore: Animal) {
-        let thisNode = self.childNode(withName: herbivore.name)!
-        let closestPlant = getClosestNodeIn(distanceOf: 300, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y))
+        guard let thisNode = self.childNode(withName: herbivore.name) else { return }
+        let closestPlant = getClosestNodeIn(distanceOf: 100, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y))
         
         if let closestPlant = closestPlant {
-            thisNode.run(SKAction.move(to: closestPlant.position, duration: 4))
+            closestPlant.position.x = CGFloat.random(in: 0..<size.width)
+            closestPlant.position.y = CGFloat.random(in: 0..<size.height)
+            thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
+                herbivore.eat()
+                closestPlant.isHidden = true
+                self.plants.filter { $0.name != closestPlant.name }
+                herbivore.isSearchingForFood = false
+            }
         }
     }
     

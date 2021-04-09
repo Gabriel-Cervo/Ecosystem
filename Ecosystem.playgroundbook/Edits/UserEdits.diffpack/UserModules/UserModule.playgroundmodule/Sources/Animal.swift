@@ -37,7 +37,7 @@ public class Animal {
     }
     
     func updateState() {
-        energy -= 1
+        energy -= 50
         if energy < 50 && state == .tired {
             state = .hungry
         } else if energy >= 50 && state == .hungry {
