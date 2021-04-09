@@ -6,7 +6,7 @@ public class Animal {
     var y: CGFloat
     var size: CGFloat
     var name: String = "herbivore"
-    var isMovingRandonly: Bool = false
+    var isSearchingForFood: Bool = false
     var energy: Int = 50
     
     var state: AnimalState = .hungry
@@ -32,21 +32,9 @@ public class Animal {
         return shape
     }
     
-    func getState() -> AnimalState {
-        return energy < 50 ? .hungry : .tired
-    }
-    
     func eat() {
         energy += 15
     }
-    
-//      func moveRandonly() {
-//          if !isMovingRandonly {
-//              let whereToGo = UIBezierPath()
-//              whereToGo.move(to: CGPoint(x))
-//              isMovingRandonly = true
-//          }
-//      }
     
     func updateState() {
         energy -= 1
