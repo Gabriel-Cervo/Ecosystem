@@ -108,7 +108,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint, withName prefix: String) -> SKNode? {
         var closestNode: SKNode?
         for node in container.children {
-            if ((node.name?.hasPrefix(prefix)) != nil) {
+            if node.name!.hasPrefix("plant") {
                 let dxActual = point.x - node.position.x
                 let dyActual = point.y - node.position.y
                 
