@@ -19,7 +19,6 @@ public class SimulationScene: SKScene {
         } else {
             updateAnimalsState()
         }
-        
     }
     
     public func draw() {
@@ -67,40 +66,49 @@ public class SimulationScene: SKScene {
     
     func lookForPlants(for herbivore: Animal) {
         guard let thisNode = self.childNode(withName: herbivore.name) else { return }
-        let closestPlant = getClosestNodeIn(distanceOf: 100, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y))
+        let closestPlant = getClosestNodeIn(distanceOf: 100, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
         
         if let closestPlant = closestPlant {
-            closestPlant.position.x = CGFloat.random(in: 0..<size.width)
-            closestPlant.position.y = CGFloat.random(in: 0..<size.height)
             thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
                 herbivore.eat()
+                self.plants = self.plants.filter { $0.name != closestPlant.name }
                 closestPlant.isHidden = true
-                self.plants.filter { $0.name != closestPlant.name }
                 herbivore.isSearchingForFood = false
             }
+            return
+        }
+        
+        moveAnimalRandonly(node: thisNode, animal: herbivore)
+    }
+    
+    func moveAnimalRandonly(node: SKNode, animal: Animal) {
+        node.run(SKAction.move(to: CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height)), duration: 1)) { 
+            animal.isSearchingForFood = false
         }
     }
     
     // returns the closest node near the point
-    func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint) -> SKNode? {
+    func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint, withName prefix: String) -> SKNode? {
         var closestNode: SKNode?
         for node in container.children {
-            let dxActual = point.x - node.position.x
-            let dyActual = point.y - node.position.y
-            
-            let distanceActual = dxActual * dxActual + dyActual * dyActual
-            
-            if (distanceActual <= (maxDistance * maxDistance)) {
-                if let cn = closestNode {
-                    let dxClosest = point.x - cn.position.x
-                    let dyClosest = point.y - cn.position.y
-                    let closestNodeDistance = dxClosest * dxClosest + dyClosest * dyClosest
-                    
-                    if distanceActual > closestNodeDistance {
+            if ((node.name?.hasPrefix(prefix)) != nil && node.isHidden == false) {
+                let dxActual = point.x - node.position.x
+                let dyActual = point.y - node.position.y
+                
+                let distanceActual = dxActual * dxActual + dyActual * dyActual
+                
+                if (distanceActual <= (maxDistance * maxDistance)) {
+                    if let cn = closestNode {
+                        let dxClosest = point.x - cn.position.x
+                        let dyClosest = point.y - cn.position.y
+                        let closestNodeDistance = dxClosest * dxClosest + dyClosest * dyClosest
+                        
+                        if distanceActual > closestNodeDistance {
+                            closestNode = node
+                        }
+                    } else {
                         closestNode = node
                     }
-                } else {
-                    closestNode = node
                 }
             }
         }
