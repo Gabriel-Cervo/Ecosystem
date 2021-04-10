@@ -26,6 +26,9 @@ public class Plant {
         shape.lineWidth = 0
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
+        shape.physicsBody = SKPhysicsBody(circleOfRadius: size)
+        shape.physicsBody!.collisionBitMask = 0b0010
+        shape.physicsBody!.contactTestBitMask = shape.physicsBody!.collisionBitMask
         return shape
     }
 }

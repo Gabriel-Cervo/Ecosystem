@@ -1,7 +1,7 @@
 import SpriteKit
 import GameplayKit
 
-public class SimulationScene: SKScene {
+public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var numOfPlants: Int = 35
@@ -10,6 +10,24 @@ public class SimulationScene: SKScene {
     
     public override func sceneDidLoad() {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    public override func didMove(to view: SKView) {
+        physicsWorld.gravity = .zero
+        physicsWorld.contactDelegate = self
+    }
+    
+    public func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name?.hasPrefix("animal") != nil {
+            collisionBetween(obj1: contact.bodyA.node!, obj2: contact.bodyB.node!)
+        } else if contact.bodyA.node?.name?.hasPrefix("plant") != nil {
+            collisionBetween(obj1: contact.bodyB.node!, obj2: contact.bodyA.node!)
+        }
+    }
+    
+    // Collision
+    func collisionBetween(obj1: SKNode, obj2: SKNode) {
+        obj2.removeFromParent()
     }
     
     public override func update(_ currentTime: TimeInterval) {
@@ -58,7 +76,7 @@ public class SimulationScene: SKScene {
             let currentHerbivore = herbivores[i]
             currentHerbivore.updateState()
             if currentHerbivore.state == .hungry && !currentHerbivore.isSearchingForFood {
-                currentHerbivore.isSearchingForFood.toggle()              
+                currentHerbivore.isSearchingForFood.toggle()            
                 lookForPlants(for: currentHerbivore)
             }
         }
@@ -66,13 +84,12 @@ public class SimulationScene: SKScene {
     
     func lookForPlants(for herbivore: Animal) {
         guard let thisNode = self.childNode(withName: herbivore.name) else { return }
-        let closestPlant = getClosestNodeIn(distanceOf: 100, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
+        let closestPlant = getClosestNodeIn(distanceOf: 60, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
         
         if let closestPlant = closestPlant {
             thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
                 herbivore.eat()
                 self.plants = self.plants.filter { $0.name != closestPlant.name }
-                closestPlant.isHidden = true
                 herbivore.isSearchingForFood.toggle()
             }
             return
@@ -83,7 +100,7 @@ public class SimulationScene: SKScene {
     
     func moveAnimalRandonly(node: SKNode, animal: Animal) {
         node.run(SKAction.move(to: CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height)), duration: 1)) { 
-            animal.isSearchingForFood = false
+            animal.isSearchingForFood.toggle()
         }
     }
     
@@ -91,7 +108,7 @@ public class SimulationScene: SKScene {
     func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint, withName prefix: String) -> SKNode? {
         var closestNode: SKNode?
         for node in container.children {
-            if ((node.name?.hasPrefix(prefix)) != nil && !node.isHidden) {
+            if ((node.name?.hasPrefix(prefix)) != nil) {
                 let dxActual = point.x - node.position.x
                 let dyActual = point.y - node.position.y
                 
