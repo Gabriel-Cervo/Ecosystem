@@ -58,7 +58,7 @@ public class SimulationScene: SKScene {
             let currentHerbivore = herbivores[i]
             currentHerbivore.updateState()
             if currentHerbivore.state == .hungry && !currentHerbivore.isSearchingForFood {
-                currentHerbivore.isSearchingForFood = true
+                currentHerbivore.isSearchingForFood.toggle()              
                 lookForPlants(for: currentHerbivore)
             }
         }
@@ -73,7 +73,7 @@ public class SimulationScene: SKScene {
                 herbivore.eat()
                 self.plants = self.plants.filter { $0.name != closestPlant.name }
                 closestPlant.isHidden = true
-                herbivore.isSearchingForFood = false
+                herbivore.isSearchingForFood.toggle()
             }
             return
         }
@@ -91,7 +91,7 @@ public class SimulationScene: SKScene {
     func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint, withName prefix: String) -> SKNode? {
         var closestNode: SKNode?
         for node in container.children {
-            if ((node.name?.hasPrefix(prefix)) != nil && node.isHidden == false) {
+            if ((node.name?.hasPrefix(prefix)) != nil && !node.isHidden) {
                 let dxActual = point.x - node.position.x
                 let dyActual = point.y - node.position.y
                 
