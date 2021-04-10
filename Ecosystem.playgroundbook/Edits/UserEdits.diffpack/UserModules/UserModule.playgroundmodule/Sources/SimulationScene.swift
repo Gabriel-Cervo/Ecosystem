@@ -5,7 +5,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var numOfPlants: Int = 35
-    var numOfHerbivores: Int = 5
+    var numOfHerbivores: Int = 1
     var hasShown: Bool = false
     
     public override func sceneDidLoad() {
@@ -28,6 +28,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     // Collision
     func collisionBetween(obj1: SKNode, obj2: SKNode) {
         obj2.removeFromParent()
+        self.plants = self.plants.filter { $0.name != obj2.name }
     }
     
     public override func update(_ currentTime: TimeInterval) {
@@ -84,12 +85,11 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     
     func lookForPlants(for herbivore: Animal) {
         guard let thisNode = self.childNode(withName: herbivore.name) else { return }
-        let closestPlant = getClosestNodeIn(distanceOf: 60, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
+        let closestPlant = getClosestNodeIn(distanceOf: 100, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
         
         if let closestPlant = closestPlant {
             thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
                 herbivore.eat()
-                self.plants = self.plants.filter { $0.name != closestPlant.name }
                 herbivore.isSearchingForFood.toggle()
             }
             return

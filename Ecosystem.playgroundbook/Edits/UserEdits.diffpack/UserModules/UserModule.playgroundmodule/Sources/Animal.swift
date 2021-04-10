@@ -30,7 +30,7 @@ public class Animal {
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
         shape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size, height: size))
-        shape.physicsBody!.collisionBitMask = 0b0010
+        shape.physicsBody!.collisionBitMask = 0b0001
         shape.physicsBody!.contactTestBitMask = shape.physicsBody!.collisionBitMask
         return shape
     }
