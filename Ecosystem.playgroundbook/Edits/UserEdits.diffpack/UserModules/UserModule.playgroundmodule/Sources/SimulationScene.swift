@@ -1,11 +1,11 @@
 import SpriteKit
 import GameplayKit
 
-public class SimulationScene: SKScene, SKPhysicsContactDelegate {
+public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var numOfPlants: Int = 20
-    var numOfHerbivores: Int = 10
+    var numOfHerbivores: Int = 5
     var hasShown: Bool = false
     
     public override func sceneDidLoad() {
@@ -23,10 +23,9 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
         
         collisionBetween(obj1: obj1, obj2: obj2)
     }
-    
-    // Collision
+
     func collisionBetween(obj1: SKNode, obj2: SKNode) {
-        let areTwoHerbivorous = obj1.name!.commonPrefix(with: obj2.name!).hasPrefix("h")
+        let areTwoHerbivorous = obj1.name!.commonPrefix(with: obj2.name!).hasPrefix("herbivore")
         if areTwoHerbivorous {
             return
         }
@@ -35,7 +34,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
         
         let objectToRemove = checkWhatObjectToRemoveBetween(obj1, obj2)
         
-        if objectToRemove.name!.hasPrefix("p") {
+        if objectToRemove.name!.hasPrefix("plant") {
             var indexInName: Int = 0
             for (index, char) in objectToRemove.name!.enumerated() {
                 if char.isNumber {
@@ -51,22 +50,14 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     
     func checkWhatObjectToRemoveBetween(_ obj1: SKNode, _ obj2: SKNode) -> SKNode {
         let names = (obj1.name!, obj2.name!)
-        if names.0.hasPrefix("h") && names.1.hasPrefix("p") {
+        if names.0.hasPrefix("herbivore") && names.1.hasPrefix("plant") {
             return obj2
         }
         
         return obj1
     }
     
-    public override func update(_ currentTime: TimeInterval) {
-        if !hasShown {
-            draw()
-            hasShown = true
-        } else {
-            updateAnimalsState()
-        }
-    }
-    
+
     public func draw() {
         drawPlants()
         drawHerbivores()
@@ -75,79 +66,77 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     func drawPlants() {
         for i in 0..<numOfPlants {
             var plant = Plant()
-            plant.name = "plant\(i)"
             if self.size.width > 0 {
+                plant.name = "plant\(i)"
                 plant.x = CGFloat.random(in: 0..<size.width)
                 plant.y = CGFloat.random(in: 0..<size.height)
                 plant.size = CGFloat.random(in: 3...8)
+                plants.append(plant)
+                self.addChild(plant.getShape())
             }
-            plants.append(plant)
-            self.addChild(plant.getShape())
         }
     }
     
     func drawHerbivores() {
         for i in 0..<numOfHerbivores {
             var herbivore = Animal()
-            herbivore.name = "herbivore\(i)"            
             if self.size.width > 0 {
+                herbivore.name = "herbivore\(i)"   
+                herbivore.delegate = self
                 herbivore.x = CGFloat.random(in: 0..<size.width)
                 herbivore.y = CGFloat.random(in: 0..<size.height)
-            }
-            herbivores.append(herbivore)
-            self.addChild(herbivore.getShape())
-        }
-    }
-
-    public func updateAnimalsState() {
-        var hungryHerbivorous: [Animal] = []
-        for i in 0..<numOfHerbivores {
-            let currentHerbivore = herbivores[i]
-            currentHerbivore.updateState()
-            if currentHerbivore.state == .hungry && !currentHerbivore.isSearchingForFood {
-                hungryHerbivorous.append(currentHerbivore)
+                herbivores.append(herbivore)
+                self.addChild(herbivore.getShape())
             }
         }
-        
-        lookForPlants(for: hungryHerbivorous)
     }
     
-    func lookForPlants(for herbivores: [Animal]) {
-        for herbivore in herbivores {
-            herbivore.isSearchingForFood.toggle() 
-            guard let thisNode = self.childNode(withName: herbivore.name) else { return }
-            let closestPlant = getClosestNodeIn(distanceOf: 300, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withType: .Plant)
-            
-            if let closestPlant = closestPlant {
-                thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
-                    herbivore.eat()
-                    herbivore.isSearchingForFood.toggle()
-                }
-                break
-            }
-            
-            moveAnimalRandonly(node: thisNode, animal: herbivore)
+    public override func update(_ currentTime: TimeInterval) {
+        if !hasShown {
+            draw()
+            hasShown = true
+            return
         }
+        for i in 0..<numOfHerbivores {
+            let actualHerbivore = self.herbivores[i]
+            actualHerbivore.updateState()
+        }
+    }
+    
+    func searchForFood(for animal: Animal) {
+        animal.isSearchingForFood.toggle() 
+        guard let thisNode = self.childNode(withName: animal.name) else { return }
+        let closestPlant = getClosestNodeIn(distanceOf: 250, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
+            
+        if let closestPlant = closestPlant {
+            thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
+                animal.eat()
+                animal.isSearchingForFood.toggle()
+            }
+            return
+        }
+        moveAnimalRandonly(node: thisNode, animal: animal)
     }
     
     func moveAnimalRandonly(node: SKNode, animal: Animal) {
-        node.run(SKAction.move(to: CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height)), duration: 1)) { 
+        node.run(SKAction.move(to: CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height)), duration: 3)) { 
             animal.isSearchingForFood.toggle()
         }
     }
     
     // returns the closest node near the point
-    func getClosestNodeIn(distanceOf maxDistance: CGFloat, on container: SKNode, from point: CGPoint, withType type: foodType) -> SKNode? {
+    func getClosestNodeIn(distanceOf maxDistance: CGFloat, from point: CGPoint, withType type: foodType) -> SKNode? {
         if type == .Plant {
-            for plant in self.plants {
-                guard let node = self.childNode(withName: plant.name) else { return nil }
-                let dxActual = point.x - node.position.x
-                let dyActual = point.y - node.position.y
-                
-                let distanceActual = dxActual * dxActual + dyActual * dyActual
-                
-                if (distanceActual <= (maxDistance * maxDistance)) {
-                    return node
+            for plant in plants {
+                if let node = self.childNode(withName: plant.name) {
+                    let dxActual = node.position.x - point.x
+                    let dyActual = node.position.y - point.y
+                    
+                    let distanceActual = dxActual * dxActual + dyActual * dyActual
+                    
+                    if (distanceActual <= (maxDistance * maxDistance)) {
+                        return node
+                    }
                 }
             }
         }

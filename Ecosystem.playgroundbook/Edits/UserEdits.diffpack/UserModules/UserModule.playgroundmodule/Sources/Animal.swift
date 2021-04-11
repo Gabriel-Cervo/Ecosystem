@@ -9,7 +9,8 @@ public class Animal {
     var isSearchingForFood: Bool = false
     var energy: Int = 50
     
-    var state: AnimalState = .hungry
+    var state: AnimalState = .tired
+    var delegate: AnimalStateDelegate?
     
     init() {
         x = 0
@@ -40,16 +41,23 @@ public class Animal {
     }
     
     func updateState() {
-        energy -= 50
-        if energy < 50 && state == .tired {
+        energy = energy <= 0 ? 0 : energy - 50
+        if energy < 50 {
             state = .hungry
-        } else if energy >= 50 && state == .hungry {
-            state = .tired
+            if !isSearchingForFood {
+                self.delegate?.searchForFood(for: self)
+            }
+            return
         }
+        state = .tired
     }
 }
 
 public enum AnimalState {
     case hungry
     case tired
+}
+
+protocol AnimalStateDelegate {
+    func searchForFood(for animal: Animal)
 }
