@@ -20,7 +20,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         let update = SKAction.run({ self.drawMorePlants(1) })
         
         let wait2 = SKAction.wait(forDuration: 2)
-        let update2 = SKAction.run({ self.drawMoreAnimals(1) })
+        let update2 = SKAction.run({ self.drawMoreAnimals(2) })
         
         let seq = SKAction.sequence([wait, update, wait2, update2])
         let repeatAction = SKAction.repeatForever(seq)
