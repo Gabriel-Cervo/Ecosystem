@@ -15,6 +15,16 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     public override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
+        
+        let wait = SKAction.wait(forDuration: 3)
+        let update = SKAction.run({ self.drawMorePlants(1) })
+        
+        let wait2 = SKAction.wait(forDuration: 2)
+        let update2 = SKAction.run({ self.drawMoreAnimals(1) })
+        
+        let seq = SKAction.sequence([wait, update, wait2, update2])
+        let repeatAction = SKAction.repeatForever(seq)
+        self.run(repeatAction)
     }
     
     public func didBegin(_ contact: SKPhysicsContact) {
@@ -77,6 +87,54 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         }
     }
     
+    func drawMorePlants(_ plantsToDraw: Int) {
+        var indexInName = 0
+        for (index, char) in plants.last!.name.enumerated() {
+            if char.isNumber {
+                indexInName = index
+                var lastIndex = Int(String(plants.last!.name.suffix(indexInName))) ?? 0
+                    for i in 0..<plantsToDraw {
+                        var plant = Plant()
+                        if self.size.width > 0 {
+                            plant.name = "plant\(lastIndex)"
+                            plant.x = CGFloat.random(in: 0..<size.width)
+                            plant.y = CGFloat.random(in: 0..<size.height)
+                            plant.size = CGFloat.random(in: 3...8)
+                            self.plants.append(plant)
+                            self.addChild(plant.getShape())
+                            numOfPlants += 1
+                            lastIndex += 1
+                        }
+                    }
+                break
+            }
+        }
+    }
+    
+    func drawMoreAnimals(_ animalsToDraw: Int) {
+        var indexInName = 0
+        for (index, char) in herbivores.last!.name.enumerated() {
+            if char.isNumber {
+                indexInName = index
+                var lastIndex = Int(String(herbivores.last!.name.suffix(indexInName))) ?? 0
+                for i in 0..<animalsToDraw {
+                    var herbivore = Animal()
+                    if self.size.width > 0 {
+                        herbivore.name = "herbivore\(lastIndex + 1)" 
+                        herbivore.delegate = self
+                        herbivore.x = CGFloat.random(in: 0..<size.width)
+                        herbivore.y = CGFloat.random(in: 0..<size.height)
+                        self.herbivores.append(herbivore)
+                        self.addChild(herbivore.getShape())
+                        numOfHerbivores += 1
+                        lastIndex += 1
+                    }
+                }
+                break
+            }
+        }
+    }
+    
     func drawHerbivores() {
         for i in 0..<numOfHerbivores {
             var herbivore = Animal()
@@ -97,10 +155,11 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             hasShown = true
             return
         }
-        for i in 0..<numOfHerbivores {
-            let actualHerbivore = self.herbivores[i]
-            actualHerbivore.updateState()
+        for herbivore in herbivores {
+            herbivore.updateState()
         }
+        
+        
     }
     
     func searchForFood(for animal: Animal) {

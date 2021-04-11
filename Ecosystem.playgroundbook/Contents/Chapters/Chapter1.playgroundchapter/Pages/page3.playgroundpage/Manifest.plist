@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>The Environment</string>
-	<key>InitialUserPages</key>
-	<array>
-		<string>page1.playgroundpage</string>
-		<string>page2.playgroundpage</string>
-		<string>page3.playgroundpage</string>
-	</array>
+	<string>Carnivores</string>
+	<key>LiveViewEdgeToEdge</key>
+	<false/>
+	<key>LiveViewMode</key>
+	<string>HiddenByDefault</string>
+	<key>PlaygroundLoggingMode</key>
+	<string>Off</string>
 </dict>
 </plist>
