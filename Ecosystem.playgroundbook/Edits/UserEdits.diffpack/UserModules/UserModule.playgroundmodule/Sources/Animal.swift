@@ -9,7 +9,7 @@ public class Animal {
     var isSearchingForFood: Bool = false
     var energy: Int = 50
     
-    var state: AnimalState = .tired
+    var state: AnimalState = .hungry
     var delegate: AnimalStateDelegate?
     
     init() {

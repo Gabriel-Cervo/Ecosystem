@@ -8,7 +8,5 @@
 	<false/>
 	<key>LiveViewMode</key>
 	<string>HiddenByDefault</string>
-	<key>PlaygroundLoggingMode</key>
-	<string>Off</string>
 </dict>
 </plist>
