@@ -166,8 +166,8 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             }
             for plant in plants {
                 if let node = self.childNode(withName: plant.name) {
-                    let dxActual = node.position.x - point.x
-                    let dyActual = node.position.y - point.y
+                    let dxActual = point.x - node.position.x
+                    let dyActual = point.y - node.position.y
                     
                     let distanceActual = dxActual * dxActual + dyActual * dyActual
                     
@@ -176,7 +176,6 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
                     }
                 }
             }
-            return nil
         }
         return nil
     }
