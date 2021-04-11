@@ -106,11 +106,13 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     func searchForFood(for animal: Animal) {
         animal.isSearchingForFood.toggle() 
         guard let thisNode = self.childNode(withName: animal.name) else { return }
-        let closestPlant = getClosestNodeIn(distanceOf: 250, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
+        let closestPlant = getClosestNodeIn(distanceOf: 100, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
             
         if let closestPlant = closestPlant {
-            thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
-                animal.eat()
+            thisNode.run(SKAction.move(to: closestPlant.position, duration: 3)) {
+                if self.plants.contains(where: { $0.name == closestPlant.name }) {
+                    animal.eat()
+                }
                 animal.isSearchingForFood.toggle()
             }
             return
