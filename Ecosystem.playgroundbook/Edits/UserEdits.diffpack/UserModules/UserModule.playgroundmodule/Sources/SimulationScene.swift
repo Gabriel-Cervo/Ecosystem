@@ -5,7 +5,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var numOfPlants: Int = 20
-    var numOfHerbivores: Int = 5
+    var numOfHerbivores: Int = 10
     var hasShown: Bool = false
     
     public override func sceneDidLoad() {
@@ -40,12 +40,12 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
             for (index, char) in objectToRemove.name!.enumerated() {
                 if char.isNumber {
                     indexInName = index
+                    if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
+                        self.plants.remove(at: indexInList)
+                    }
+                    break
                 }
             }
-            
-            guard let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) else { return }
-            
-            self.plants.remove(at: indexInList)
         }
     }
     
