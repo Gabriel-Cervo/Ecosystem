@@ -75,8 +75,8 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     func drawPlants() {
         for i in 0..<numOfPlants {
-            var plant = Plant()
             if self.size.width > 0 {
+                var plant = Plant()
                 plant.name = "plant\(i)"
                 plant.x = CGFloat.random(in: 0..<size.width)
                 plant.y = CGFloat.random(in: 0..<size.height)
@@ -88,57 +88,39 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     }
     
     func drawMorePlants(_ plantsToDraw: Int) {
-        var indexInName = 0
-        for (index, char) in plants.last!.name.enumerated() {
-            if char.isNumber {
-                indexInName = index
-                var lastIndex = Int(String(plants.last!.name.suffix(indexInName))) ?? 0
-                    for i in 0..<plantsToDraw {
-                        var plant = Plant()
-                        if self.size.width > 0 {
-                            plant.name = "plant\(lastIndex)"
-                            plant.x = CGFloat.random(in: 0..<size.width)
-                            plant.y = CGFloat.random(in: 0..<size.height)
-                            plant.size = CGFloat.random(in: 3...8)
-                            self.plants.append(plant)
-                            self.addChild(plant.getShape())
-                            numOfPlants += 1
-                            lastIndex += 1
-                        }
-                    }
-                break
+        for i in 0..<plantsToDraw {
+            if self.size.width > 0 {
+                var plant = Plant()
+                plant.name = "plant\(i + numOfPlants)"
+                plant.x = CGFloat.random(in: 0..<size.width)
+                plant.y = CGFloat.random(in: 0..<size.height)
+                plant.size = CGFloat.random(in: 3...8)
+                self.plants.append(plant)
+                self.addChild(plant.getShape())
+                numOfPlants += 1
             }
         }
     }
     
     func drawMoreAnimals(_ animalsToDraw: Int) {
-        var indexInName = 0
-        for (index, char) in herbivores.last!.name.enumerated() {
-            if char.isNumber {
-                indexInName = index
-                var lastIndex = Int(String(herbivores.last!.name.suffix(indexInName))) ?? 0
-                for i in 0..<animalsToDraw {
-                    var herbivore = Animal()
-                    if self.size.width > 0 {
-                        herbivore.name = "herbivore\(lastIndex + 1)" 
-                        herbivore.delegate = self
-                        herbivore.x = CGFloat.random(in: 0..<size.width)
-                        herbivore.y = CGFloat.random(in: 0..<size.height)
-                        self.herbivores.append(herbivore)
-                        self.addChild(herbivore.getShape())
-                        numOfHerbivores += 1
-                        lastIndex += 1
-                    }
-                }
-                break
+        for i in 0..<animalsToDraw {
+            if self.size.width > 0 {
+                var herbivore = Animal()
+                herbivore.name = "herbivore\((i + numOfHerbivores))" 
+                herbivore.delegate = self
+                herbivore.x = CGFloat.random(in: 0..<size.width)
+                herbivore.y = CGFloat.random(in: 0..<size.height)
+                self.herbivores.append(herbivore)
+                self.addChild(herbivore.getShape())
+                numOfHerbivores += 1
             }
         }
     }
     
     func drawHerbivores() {
         for i in 0..<numOfHerbivores {
-            var herbivore = Animal()
             if self.size.width > 0 {
+                var herbivore = Animal()
                 herbivore.name = "herbivore\(i)"   
                 herbivore.delegate = self
                 herbivore.x = CGFloat.random(in: 0..<size.width)
