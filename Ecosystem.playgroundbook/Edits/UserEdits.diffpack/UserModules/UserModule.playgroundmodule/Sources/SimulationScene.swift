@@ -4,8 +4,8 @@ import GameplayKit
 public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
-    var numOfPlants: Int = 35
-    var numOfHerbivores: Int = 3
+    var numOfPlants: Int = 30
+    var numOfHerbivores: Int = 5
     var hasShown: Bool = false
     
     public override func sceneDidLoad() {
@@ -18,15 +18,14 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
     }
     
     public func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name?.hasPrefix("animal") != nil {
-            collisionBetween(obj1: contact.bodyA.node!, obj2: contact.bodyB.node!)
-        } else if contact.bodyA.node?.name?.hasPrefix("plant") != nil {
-            collisionBetween(obj1: contact.bodyB.node!, obj2: contact.bodyA.node!)
-        }
+        collisionBetween(obj1: contact.bodyA.node!, obj2: contact.bodyB.node!)
     }
     
     // Collision
     func collisionBetween(obj1: SKNode, obj2: SKNode) {
+        if obj1.name!.commonPrefix(with: obj2.name!).hasPrefix("a") {
+            return
+        }
         obj2.removeFromParent()
         self.plants = self.plants.filter { $0.name != obj2.name }
     }
@@ -92,10 +91,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
             let closestPlant = getClosestNodeIn(distanceOf: 250, on: self, from: CGPoint(x: herbivore.x, y: herbivore.y), withName: "plant")
             
             if let closestPlant = closestPlant {
-                let offset = CGPoint(x: thisNode.position.x - closestPlant.position.x, y: thisNode.position.y - closestPlant.position.y)
-                let length = offset.x * offset.x + offset.y * offset.y
-                
-                thisNode.run(SKAction.move(to: closestPlant.position, duration: length)) {
+                thisNode.run(SKAction.move(to: closestPlant.position, duration: 1)) {
                     herbivore.eat()
                     herbivore.isSearchingForFood.toggle()
                 }
@@ -123,17 +119,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate {
                 let distanceActual = dxActual * dxActual + dyActual * dyActual
                 
                 if (distanceActual <= (maxDistance * maxDistance)) {
-                    if let cn = closestNode {
-                        let dxClosest = point.x - cn.position.x
-                        let dyClosest = point.y - cn.position.y
-                        let closestNodeDistance = dxClosest * dxClosest + dyClosest * dyClosest
-                        
-                        if distanceActual > closestNodeDistance {
-                            closestNode = node
-                        }
-                    } else {
-                        closestNode = node
-                    }
+                    return node
                 }
             }
         }
