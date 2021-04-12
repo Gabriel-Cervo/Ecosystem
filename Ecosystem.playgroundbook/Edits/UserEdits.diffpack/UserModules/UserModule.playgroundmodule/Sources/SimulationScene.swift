@@ -5,7 +5,9 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var initialNumberOfPlants: Int = 20
+    let maxNumberOfPlants: Int = 50
     var initialNumberOfHerbivores: Int = 5
+    let maxNumberOfHerbivores = 20
     var hasShown: Bool = false
     
     public override func sceneDidLoad() {
@@ -88,6 +90,9 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     }
     
     func drawMorePlants(_ plantsToDraw: Int) {
+        if plants.count >= maxNumberOfPlants {
+            return
+        }
         for i in 0..<plantsToDraw {
             if self.size.width > 0 {
                 var plant = Plant()
@@ -114,6 +119,9 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         }
     
     func drawMoreAnimals(_ animalsToDraw: Int) {
+        if herbivores.count >= maxNumberOfHerbivores {
+            return
+        }
         for i in 0..<animalsToDraw {
             var herbivore = Animal()
             herbivore.name = "herbivore\((i + herbivores.count))" 
@@ -139,7 +147,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     func searchForFood(for animal: Animal) {
         animal.isSearchingForFood.toggle() 
         guard let thisNode = self.childNode(withName: animal.name) else { return }
-        let closestPlant = getClosestNodeWith(distanceOf: 150, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
+        let closestPlant = getClosestNodeWith(distanceOf: 200, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
             
         if let closestPlant = closestPlant {
             thisNode.run(SKAction.move(to: closestPlant.position, duration: 3)) {
@@ -166,18 +174,19 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             }
             for plant in plants {
                 if let node = self.childNode(withName: plant.name) {
-                    let dxActual = point.x - node.position.x
-                    let dyActual = point.y - node.position.y
+                    let distance = distanceBetweenPoints(first: node.position, second: point)
                     
-                    let distanceActual = dxActual * dxActual + dyActual * dyActual
-                    
-                    if (distanceActual <= (maxDistance * maxDistance)) {
+                    if (distance <= maxDistance) {
                         return node
                     }
                 }
             }
         }
         return nil
+    }
+    
+    func distanceBetweenPoints(first: CGPoint, second: CGPoint) -> CGFloat {
+        return CGFloat(hypotf(Float(second.x - first.x), Float(second.y - first.y)))
     }
 }
 
