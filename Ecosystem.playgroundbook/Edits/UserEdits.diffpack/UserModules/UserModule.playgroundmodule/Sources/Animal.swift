@@ -8,9 +8,10 @@ public class Animal {
     var name: String = "animal"
     var isSearchingForFood: Bool = false
     var type: AnimalType
-    var energy: Int = 50
+    var energy: Double = 60
+    var isAlive: Bool = true
     
-    var state: AnimalState = .hungry
+    var state: AnimalState = .tired
     var delegate: AnimalStateDelegate?
     
     init() {
@@ -40,19 +41,25 @@ public class Animal {
     }
     
     func eat() {
-        energy += 15
+        energy += 55
     }
     
     func updateState() {
-        energy = energy <= 0 ? 0 : energy - 50
-        if energy < 50 {
-            state = .hungry
-            if !isSearchingForFood {
-                self.delegate?.searchForFood(for: self)
+        if isAlive {
+            energy = energy <= 0.0 ? 0.0 : energy - 0.05
+            if energy == 0 {
+                isAlive = false
+                self.delegate?.dieOfHungry(animal: self)
             }
-            return
+            if energy <= 50.0 {
+                state = .hungry
+                if !isSearchingForFood {
+                    self.delegate?.searchForFood(for: self)
+                }
+                return
+            }
+            state = .tired
         }
-        state = .tired
     }
 }
 
@@ -68,4 +75,5 @@ public enum AnimalType {
 
 protocol AnimalStateDelegate {
     func searchForFood(for animal: Animal)
+    func dieOfHungry(animal: Animal)
 }
