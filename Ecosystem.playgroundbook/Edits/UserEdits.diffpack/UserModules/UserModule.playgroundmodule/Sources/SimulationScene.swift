@@ -28,13 +28,13 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         physicsWorld.contactDelegate = self
         
         let wait = SKAction.wait(forDuration: 3)
-        let update = SKAction.run({ self.drawMorePlants(1) })
+        let update = SKAction.run({ self.drawPlants(2) })
         
         let wait2 = SKAction.wait(forDuration: 2)
-        let update2 = SKAction.run({ self.drawMoreHerbivorous() })
+        let update2 = SKAction.run({ self.drawHerbivores() })
         
         let wait3 = SKAction.wait(forDuration: 2)
-        let update3 = SKAction.run({ self.drawMoreCarnivorous() })
+        let update3 = SKAction.run({ self.drawCarnivores() })
         
         let seq = SKAction.sequence([wait, update, wait2, update2, wait3, update3])
         let repeatAction = SKAction.repeatForever(seq)
@@ -118,15 +118,22 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     }
     
     public func draw() {
-        drawPlants()
+        drawPlants(initialNumberOfPlants)
         drawHerbivores()
         drawCarnivores()
     }
     
-    func drawPlants() {
-        for i in 0..<initialNumberOfPlants {
+    func drawPlants(_ numOfPlants: Int) {
+        if plants.count >= maxNumberOfPlants {
+            return
+        }
+        
+        let isPlantsListEmpty: Bool = plants.count == 0
+        
+        for i in 0..<numOfPlants {
             var plant = Plant()
-            plant.name = "plant\(i)"
+            let indexName = isPlantsListEmpty ? i : plants.count + i + 1
+            plant.name = "plant\(indexName)"
             plant.x = CGFloat.random(in: 0..<size.width)
             plant.y = CGFloat.random(in: 0..<size.height)
             plant.size = CGFloat.random(in: 3...8)
@@ -135,24 +142,18 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         }
     }
     
-    func drawMorePlants(_ plantsToDraw: Int) {
-        if plants.count >= maxNumberOfPlants {
+    func drawHerbivores() {
+        if herbivores.count >= maxNumberOfHerbivores {
             return
         }
-        for i in 0..<plantsToDraw {
-            var plant = Plant()
-            plant.name = "plant\(i + plants.count)"
-            plant.x = CGFloat.random(in: 0..<size.width)
-            plant.y = CGFloat.random(in: 0..<size.height)
-            plant.size = CGFloat.random(in: 3...8)
-            self.plants.append(plant)
-            self.addChild(plant.getShape())
-        }
-    }
-    
-    func drawHerbivores() {
-        for i in 0..<initialNumberOfHerbivores {
+        
+        let isHerbivorousListEmpty: Bool = herbivores.count == 0
+        
+        let animalsToDraw = isHerbivorousListEmpty ? initialNumberOfHerbivores : self.herbivores.filter({ $0.energy >= energyToReproduce }).count % 2
+        
+        for i in 0..<animalsToDraw {
             var herbivore = Animal()
+            let indexName = isHerbivorousListEmpty ? i : herbivores.count + i + 1
             herbivore.name = "herbivore\(i)"   
             herbivore.delegate = self
             herbivore.type = .Herbivore
@@ -164,50 +165,23 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         }
     
     func drawCarnivores() {
-        for i in 0..<initialNumberOfCarnivores {
+        if carnivores.count >= maxNumberOfCarnivores {
+            return
+        }
+        
+        let isCarnivoresListEmpty: Bool = carnivores.count == 0
+        
+        let animalsToDraw = isCarnivoresListEmpty ? initialNumberOfCarnivores : self.carnivores.filter({ $0.energy >= energyToReproduce }).count % 2
+        
+        for i in 0..<animalsToDraw {
             var carnivore = Animal()
+            let indexName = isCarnivoresListEmpty ? i : carnivores.count + i + 1
             carnivore.name = "carnivore\(i)"   
             carnivore.delegate = self
             carnivore.type = .Carnivore
             carnivore.x = CGFloat.random(in: 0..<size.width)
             carnivore.y = CGFloat.random(in: 0..<size.height)
             carnivores.append(carnivore)
-            self.addChild(carnivore.getShape())
-        }
-    }
-    
-    func drawMoreHerbivorous() {
-        if herbivores.count >= maxNumberOfHerbivores {
-            return
-        }
-        
-        let animalsToDraw = self.herbivores.filter({ $0.energy >= energyToReproduce }).count % 2
-        for i in 0..<animalsToDraw {
-            var herbivore = Animal()
-            herbivore.name = "herbivore\((i + herbivores.count))" 
-            herbivore.delegate = self
-            herbivore.type = .Herbivore
-            herbivore.x = CGFloat.random(in: 0..<size.width)
-            herbivore.y = CGFloat.random(in: 0..<size.height)
-            self.herbivores.append(herbivore)
-            self.addChild(herbivore.getShape())
-        }
-    }
-    
-    func drawMoreCarnivorous() {
-        if carnivores.count >= maxNumberOfCarnivores {
-            return
-        }
-        
-        let animalsToDraw = self.carnivores.filter({ $0.energy >= energyToReproduce }).count % 2
-        for i in 0..<animalsToDraw {
-            var carnivore = Animal()
-            carnivore.name = "carnivore\((i + carnivores.count + 1))" 
-            carnivore.delegate = self
-            carnivore.type = .Carnivore
-            carnivore.x = CGFloat.random(in: 0..<size.width)
-            carnivore.y = CGFloat.random(in: 0..<size.height)
-            self.carnivores.append(carnivore)
             self.addChild(carnivore.getShape())
         }
     }
@@ -241,9 +215,6 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         if let closestNode = closestNode {
             let distance = distanceBetweenPoints(first: thisNode.position, second: closestNode.position)
             thisNode.run(SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))) {
-                if let _ = self.childNode(withName: closestNode.name!) {
-                    animal.eat()
-                }
                 animal.isSearchingForFood.toggle()
             }
             return
