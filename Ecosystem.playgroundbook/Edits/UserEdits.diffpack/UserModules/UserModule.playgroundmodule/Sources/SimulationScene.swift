@@ -52,41 +52,45 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             return
         }
         
-        let objectToRemove = checkWhatObjectToRemoveBetween(obj1, obj2)
-        objectToRemove.removeFromParent()
-        
-        var indexInName: Int = 0
-        for (index, char) in objectToRemove.name!.enumerated() {
-            if char.isNumber {
-                indexInName = index
-                if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
-                    
-                    if objectToRemove.name!.hasPrefix("plant") {
-                        self.plants.remove(at: indexInList)
-                        return
-                    } 
-                    self.herbivores.remove(at: indexInList)
+        if let objectToRemove = checkWhatObjectToRemoveBetween(obj1, obj2) {
+            objectToRemove.removeFromParent()
+            var indexInName: Int = 0
+            for (index, char) in objectToRemove.name!.enumerated() {
+                if char.isNumber {
+                    indexInName = index
+                    if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
+                        
+                        if objectToRemove.name!.hasPrefix("plant") {
+                            self.plants.remove(at: indexInList)
+                            return
+                        } 
+                        self.herbivores.remove(at: indexInList)
+                    }
+                    break
                 }
-                break
             }
         }
     }
     
-    func checkWhatObjectToRemoveBetween(_ obj1: SKNode, _ obj2: SKNode) -> SKNode {
+    func checkWhatObjectToRemoveBetween(_ obj1: SKNode, _ obj2: SKNode) -> SKNode? {
         let names = (obj1.name!, obj2.name!)
         
-        if names.0.hasPrefix("herbivore") && names.1.hasPrefix("carnivore") {
-            return obj1
-        } else if  names.0.hasPrefix("carnivore") && names.1.hasPrefix("herbivore")  {
-            return obj2
-        } else if names.0.hasPrefix("herbivore") && names.1.hasPrefix("plant") {
-            return obj2
+        if names.0.contains("plant") {
+            return names.1.contains("carnivore") ? nil : obj1
         }
         
-        return obj1
+        if names.0.contains("herbivore") {
+            return names.1.contains("carnivore") ? obj1 : obj2
+            
+        }
+        
+        if names.0.contains("carnivore") {
+            return names.1.contains("herbivore") ? obj2 : nil
+        }
+        
+        return nil
     }
     
-
     public func draw() {
         drawPlants()
         drawHerbivores()
@@ -191,20 +195,30 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             hasShown = true
             return
         }
+        
+        updateAnimalsState()
+    }
+    
+    func updateAnimalsState() {
         for herbivore in herbivores {
             herbivore.updateState()
+        }
+        
+        for carnivore in carnivores {
+            carnivore.updateState()
         }
     }
     
     func searchForFood(for animal: Animal) {
         animal.isSearchingForFood.toggle() 
+        let typeOfFood: foodType = animal.type == .Herbivore ? .Plant : .Animal
         guard let thisNode = self.childNode(withName: animal.name) else { return }
-        let closestPlant = getClosestNodeWith(distanceOf: 200, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
+        let closestNode = getClosestNodeWith(distanceOf: 200, from: CGPoint(x: animal.x, y: animal.y), withType: typeOfFood)
             
-        if let closestPlant = closestPlant {
-            let distance = distanceBetweenPoints(first: thisNode.position, second: closestPlant.position)
-            thisNode.run(SKAction.move(to: closestPlant.position, duration: (Double(distance) / objectVelocity))) {
-                if let stillExists = self.childNode(withName: closestPlant.name!) {
+        if let closestNode = closestNode {
+            let distance = distanceBetweenPoints(first: thisNode.position, second: closestNode.position)
+            thisNode.run(SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))) {
+                if let stillExists = self.childNode(withName: closestNode.name!) {
                     animal.eat()
                 }
                 animal.isSearchingForFood.toggle()
@@ -238,7 +252,22 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
                     }
                 }
             }
+            return nil
         }
+        
+        if herbivores.count <= 0 {
+            return nil
+        }
+        for animal in herbivores {
+            if let node = self.childNode(withName: animal.name) {
+                let distance = distanceBetweenPoints(first: node.position, second: point)
+                
+                if (distance <= maxDistance) {
+                    return node
+                }
+            }
+        }
+        
         return nil
     }
     
