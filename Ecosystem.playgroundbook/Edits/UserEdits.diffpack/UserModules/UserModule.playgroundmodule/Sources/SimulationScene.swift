@@ -4,14 +4,18 @@ import GameplayKit
 public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDelegate {
     var plants: [Plant] = []
     var herbivores: [Animal] = []
+    var carnivores: [Animal] = []
     var initialNumberOfPlants: Int = 20
-    var initialNumberOfHerbivores: Int = 50
+    var initialNumberOfHerbivores: Int = 10
+    var initialNumberOfCarnivores: Int = 5
+    
     var hasShown: Bool = false
     
-    let maxNumberOfHerbivores = 20
+    let maxNumberOfHerbivores: Int = 20
+    var maxNumberOfCarnivores: Int = 10
     let maxNumberOfPlants: Int = 40
     
-    let objectVelocity: Double = 55.0 
+    let objectVelocity: Double = 50.0 
     
     public override func sceneDidLoad() {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -25,9 +29,12 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         let update = SKAction.run({ self.drawMorePlants(1) })
         
         let wait2 = SKAction.wait(forDuration: 2)
-        let update2 = SKAction.run({ self.drawMoreAnimals(2) })
+        let update2 = SKAction.run({ self.drawMoreHerbivorous() })
         
-        let seq = SKAction.sequence([wait, update, wait2, update2])
+        let wait3 = SKAction.wait(forDuration: 2)
+        let update3 = SKAction.run({ self.drawMoreCarnivorous() })
+        
+        let seq = SKAction.sequence([wait, update, wait2, update2, wait3, update3])
         let repeatAction = SKAction.repeatForever(seq)
         self.run(repeatAction)
     }
@@ -45,27 +52,34 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             return
         }
         
-        obj2.removeFromParent()
-        
         let objectToRemove = checkWhatObjectToRemoveBetween(obj1, obj2)
+        objectToRemove.removeFromParent()
         
-        if objectToRemove.name!.hasPrefix("plant") {
-            var indexInName: Int = 0
-            for (index, char) in objectToRemove.name!.enumerated() {
-                if char.isNumber {
-                    indexInName = index
-                    if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
+        var indexInName: Int = 0
+        for (index, char) in objectToRemove.name!.enumerated() {
+            if char.isNumber {
+                indexInName = index
+                if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
+                    
+                    if objectToRemove.name!.hasPrefix("plant") {
                         self.plants.remove(at: indexInList)
-                    }
-                    break
+                        return
+                    } 
+                    self.herbivores.remove(at: indexInList)
                 }
+                break
             }
         }
     }
     
     func checkWhatObjectToRemoveBetween(_ obj1: SKNode, _ obj2: SKNode) -> SKNode {
         let names = (obj1.name!, obj2.name!)
-        if names.0.hasPrefix("herbivore") && names.1.hasPrefix("plant") {
+        
+        if names.0.hasPrefix("herbivore") && names.1.hasPrefix("carnivore") {
+            return obj1
+        } else if  names.0.hasPrefix("carnivore") && names.1.hasPrefix("herbivore")  {
+            return obj2
+        } else if names.0.hasPrefix("herbivore") && names.1.hasPrefix("plant") {
             return obj2
         }
         
@@ -76,6 +90,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     public func draw() {
         drawPlants()
         drawHerbivores()
+        drawCarnivores()
     }
     
     func drawPlants() {
@@ -114,6 +129,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             var herbivore = Animal()
             herbivore.name = "herbivore\(i)"   
             herbivore.delegate = self
+            herbivore.type = .Herbivore
             herbivore.x = CGFloat.random(in: 0..<size.width)
             herbivore.y = CGFloat.random(in: 0..<size.height)
             herbivores.append(herbivore)
@@ -121,18 +137,51 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             }
         }
     
-    func drawMoreAnimals(_ animalsToDraw: Int) {
+    func drawCarnivores() {
+        for i in 0..<initialNumberOfCarnivores {
+            var carnivore = Animal()
+            carnivore.name = "carnivore\(i)"   
+            carnivore.delegate = self
+            carnivore.type = .Carnivore
+            carnivore.x = CGFloat.random(in: 0..<size.width)
+            carnivore.y = CGFloat.random(in: 0..<size.height)
+            carnivores.append(carnivore)
+            self.addChild(carnivore.getShape())
+        }
+    }
+    
+    func drawMoreHerbivorous() {
         if herbivores.count >= maxNumberOfHerbivores {
             return
         }
+        
+        let animalsToDraw = self.herbivores.filter({ $0.energy > 50 }).count % 2
         for i in 0..<animalsToDraw {
             var herbivore = Animal()
             herbivore.name = "herbivore\((i + herbivores.count))" 
             herbivore.delegate = self
+            herbivore.type = .Herbivore
             herbivore.x = CGFloat.random(in: 0..<size.width)
             herbivore.y = CGFloat.random(in: 0..<size.height)
             self.herbivores.append(herbivore)
             self.addChild(herbivore.getShape())
+        }
+    }
+    
+    func drawMoreCarnivorous() {
+        if herbivores.count >= maxNumberOfHerbivores {
+            return
+        }
+        let animalsToDraw = self.carnivores.filter({ $0.energy > 50 }).count % 2
+        for i in 0..<animalsToDraw {
+            var carnivore = Animal()
+            carnivore.name = "carnivore\((i + herbivores.count))" 
+            carnivore.delegate = self
+            carnivore.type = .Carnivore
+            carnivore.x = CGFloat.random(in: 0..<size.width)
+            carnivore.y = CGFloat.random(in: 0..<size.height)
+            self.carnivores.append(carnivore)
+            self.addChild(carnivore.getShape())
         }
     }
     

@@ -5,8 +5,9 @@ public class Animal {
     var x: CGFloat
     var y: CGFloat
     var size: CGFloat
-    var name: String = "herbivore"
+    var name: String = "animal"
     var isSearchingForFood: Bool = false
+    var type: AnimalType
     var energy: Int = 50
     
     var state: AnimalState = .hungry
@@ -16,17 +17,19 @@ public class Animal {
         x = 0
         y = 0
         size = 20
+        type = .Herbivore
     }
     
-    init(x: CGFloat, y: CGFloat, size: CGFloat) {
+    init(x: CGFloat, y: CGFloat, size: CGFloat, type: AnimalType) {
         self.x = x
         self.y = y
         self.size = size
+        self.type = type
     }
     
     func getShape() -> SKShapeNode {
         var shape: SKShapeNode = .init(rectOf: CGSize(width: size, height: size))
-        shape.fillColor = #colorLiteral(red: 0.3248277307, green: 0.8369095325, blue: 0.9915711284, alpha: 1.0)
+        shape.fillColor = self.type == .Herbivore ? #colorLiteral(red: -0.234541654586792, green: 0.850436270236969, blue: 1.0099623203277588, alpha: 1.0) : #colorLiteral(red: 0.8894588351, green: 0.1420151591, blue: 0.0, alpha: 1.0)
         shape.lineWidth = 0
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
@@ -56,6 +59,11 @@ public class Animal {
 public enum AnimalState {
     case hungry
     case tired
+}
+
+public enum AnimalType {
+    case Carnivore
+    case Herbivore
 }
 
 protocol AnimalStateDelegate {
