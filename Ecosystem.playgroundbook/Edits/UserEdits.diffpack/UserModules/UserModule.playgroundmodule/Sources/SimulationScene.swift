@@ -5,10 +5,13 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var initialNumberOfPlants: Int = 20
-    let maxNumberOfPlants: Int = 50
-    var initialNumberOfHerbivores: Int = 5
-    let maxNumberOfHerbivores = 20
+    var initialNumberOfHerbivores: Int = 50
     var hasShown: Bool = false
+    
+    let maxNumberOfHerbivores = 20
+    let maxNumberOfPlants: Int = 40
+    
+    let objectVelocity: Double = 55.0 
     
     public override func sceneDidLoad() {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -150,7 +153,8 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         let closestPlant = getClosestNodeWith(distanceOf: 200, from: CGPoint(x: animal.x, y: animal.y), withType: .Plant)
             
         if let closestPlant = closestPlant {
-            thisNode.run(SKAction.move(to: closestPlant.position, duration: 3)) {
+            let distance = distanceBetweenPoints(first: thisNode.position, second: closestPlant.position)
+            thisNode.run(SKAction.move(to: closestPlant.position, duration: (Double(distance) / objectVelocity))) {
                 if let stillExists = self.childNode(withName: closestPlant.name!) {
                     animal.eat()
                 }
@@ -162,7 +166,11 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     }
     
     func moveAnimalRandonly(node: SKNode, animal: Animal) {
-        node.run(SKAction.move(to: CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height)), duration: 3)) { 
+        let randomPoint = CGPoint(x: CGFloat.random(in: 0..<self.size.width), y: CGFloat.random(in: 0..<self.size.height))
+        
+        let distance = distanceBetweenPoints(first: node.position, second: randomPoint)
+        
+        node.run(SKAction.move(to: randomPoint, duration: (Double(distance) / objectVelocity))) { 
             animal.isSearchingForFood.toggle()
         }
     }
