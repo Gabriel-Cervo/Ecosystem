@@ -29,16 +29,20 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         
         let wait = SKAction.wait(forDuration: 3)
         let update = SKAction.run({ self.drawPlants(2) })
+        let group1 = SKAction.sequence([wait, update])
         
         let wait2 = SKAction.wait(forDuration: 2)
         let update2 = SKAction.run({ self.drawHerbivores() })
+        let group2 = SKAction.sequence([wait2, update2])
         
         let wait3 = SKAction.wait(forDuration: 2)
         let update3 = SKAction.run({ self.drawCarnivores() })
+        let group3 = SKAction.sequence([wait3, update3])
         
-        let seq = SKAction.sequence([wait, update, wait2, update2, wait3, update3])
-        let repeatAction = SKAction.repeatForever(seq)
-        self.run(repeatAction)
+        let group = SKAction.group([group1, group2, group3])
+        let repeatedForever = SKAction.repeatForever(group)
+        
+        self.run(repeatedForever)
     }
     
     public func didBegin(_ contact: SKPhysicsContact) {
@@ -59,43 +63,46 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             
             let eater = objectToRemove.isEqual(to: obj1) ? obj2 : obj1
             
-            var indexInName: Int = 0
-            for (index, char) in objectToRemove.name!.enumerated() {
-                if char.isNumber {
-                    indexInName = index
-                    if let indexInList = Int(String(objectToRemove.name!.suffix(indexInName))) {
-                        
-                        if objectToRemove.name!.hasPrefix("plant") {
-                            searchInArrayAndCallEat(for: eater, in: "herbivores")
-                            self.plants.remove(at: indexInList)
-                            return
-                        } 
-                        searchInArrayAndCallEat(for: eater, in: "carnivores")
-                        self.herbivores.remove(at: indexInList)
+            if objectToRemove.name!.contains("plant") {
+                if let firstPlantWithIndexOf = plants.firstIndex(where: { $0.name == objectToRemove.name! }) {
+                    searchInArrayAndCallEat(for: eater, in: "herbivores")
+                    self.plants.remove(at: firstPlantWithIndexOf)
+                }
+            } else {
+                if let firstHerbivoreWithIndex = herbivores.firstIndex(where: { $0.name == objectToRemove.name! }) {
+                    let hasEaten = searchInArrayAndCallEat(for: eater, in: "carnivores")
+                    
+                    if hasEaten {
+                        self.herbivores.remove(at: firstHerbivoreWithIndex)
                     }
-                    break
                 }
             }
         }
     }
     
-    func searchInArrayAndCallEat(for obj: SKNode, in listName: String) {
+    func searchInArrayAndCallEat(for obj: SKNode, in listName: String) -> Bool {
         let eaterName = obj.name!
         if listName == "herbivores" {
-            for i in 0..<herbivores.count {
-                if herbivores[i].name == eaterName {
-                    herbivores.remove(at: i)
+            for herbivore in herbivores {
+                if herbivore.name == eaterName {
+                    herbivore.eat()
+                    return true
                 }
             }
-            return
+            return false
         }
         
-        for i in 0..<carnivores.count {
-            if carnivores[i].name == eaterName {
-                carnivores.remove(at: i)
+        for carnivore in carnivores {
+            if carnivore.name == eaterName {
+                if carnivore.isAlive {
+                    carnivore.eat()
+                    return true
+                }
+                return false
             }
         }
-        return
+        
+        return false
     }
     
     func checkWhatObjectToRemoveBetween(_ obj1: SKNode, _ obj2: SKNode) -> SKNode? {
@@ -154,7 +161,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         for i in 0..<animalsToDraw {
             var herbivore = Animal()
             let indexName = isHerbivorousListEmpty ? i : herbivores.count + i + 1
-            herbivore.name = "herbivore\(i)"   
+            herbivore.name = "herbivore\(indexName)"   
             herbivore.delegate = self
             herbivore.type = .Herbivore
             herbivore.x = CGFloat.random(in: 0..<size.width)
@@ -176,7 +183,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         for i in 0..<animalsToDraw {
             var carnivore = Animal()
             let indexName = isCarnivoresListEmpty ? i : carnivores.count + i + 1
-            carnivore.name = "carnivore\(i)"   
+            carnivore.name = "carnivore\(indexName)"   
             carnivore.delegate = self
             carnivore.type = .Carnivore
             carnivore.x = CGFloat.random(in: 0..<size.width)

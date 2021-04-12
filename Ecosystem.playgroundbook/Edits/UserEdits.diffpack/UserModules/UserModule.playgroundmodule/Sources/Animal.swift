@@ -41,23 +41,24 @@ public class Animal {
     }
     
     func eat() {
-        energy += 55
+        energy += 55.0
     }
     
     func updateState() {
         if isAlive {
-            energy = energy <= 0.0 ? 0.0 : energy - 0.05
-            if energy == 0 {
+            energy -= 0.1
+            if energy <= 0.0 {
                 isAlive = false
                 self.delegate?.dieOfHungry(animal: self)
-            }
+                return
+            } 
             if energy <= 50.0 {
                 state = .hungry
                 if !isSearchingForFood {
                     self.delegate?.searchForFood(for: self)
                 }
                 return
-            }
+            } 
             state = .tired
         }
     }
