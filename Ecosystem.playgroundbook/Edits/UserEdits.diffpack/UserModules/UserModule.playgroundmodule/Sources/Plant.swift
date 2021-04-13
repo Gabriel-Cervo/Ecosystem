@@ -5,28 +5,24 @@ import SpriteKit
 public class Plant {
     var x: CGFloat
     var y: CGFloat
-    var size: CGFloat
     var name: String = "plant"
+    var size: Int = 10
     
     init() {
         x = 0
         y = 0
-        size = 10
     }
     
     init(x: CGFloat, y: CGFloat, size: CGFloat) {
         self.x = x
         self.y = y
-        self.size = size
     }
     
-    func getShape() -> SKShapeNode {
-        var shape: SKShapeNode = .init(circleOfRadius: size)
-        shape.fillColor = #colorLiteral(red: 0.6933748722, green: 0.8683621287, blue: 0.5471815467, alpha: 1.0)
-        shape.lineWidth = 0
+    func getShape() -> SKSpriteNode {
+        var shape: SKSpriteNode = .init(imageNamed: "planta\(Int.random(in: 0..<2))")
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
-        shape.physicsBody = SKPhysicsBody(circleOfRadius: size)
+        shape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size, height: size))
         shape.physicsBody!.collisionBitMask = 0b0001
         shape.physicsBody!.contactTestBitMask = shape.physicsBody!.collisionBitMask
         return shape

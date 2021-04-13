@@ -28,10 +28,9 @@ public class Animal {
         self.type = type
     }
     
-    func getShape() -> SKShapeNode {
-        var shape: SKShapeNode = .init(rectOf: CGSize(width: size, height: size))
-        shape.fillColor = self.type == .Herbivore ? #colorLiteral(red: 0.4653213024, green: 0.7332682014, blue: 0.2536376119, alpha: 1.0) : #colorLiteral(red: 0.8894588351, green: 0.1420151591, blue: 0.0, alpha: 1.0)
-        shape.lineWidth = 0
+    func getShape() -> SKSpriteNode {
+        var shape: SKSpriteNode = self.type == .Carnivore ? .init(imageNamed: "onça0") : .init(imageNamed: "onça1")
+        shape.size = CGSize(width: 64, height: 64)
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
         shape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size, height: size))

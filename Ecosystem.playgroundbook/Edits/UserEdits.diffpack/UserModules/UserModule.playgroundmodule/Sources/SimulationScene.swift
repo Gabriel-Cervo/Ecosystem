@@ -20,7 +20,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     let objectVelocity: Double = 85.0
     
     public override func sceneDidLoad() {
-        self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.backgroundColor = #colorLiteral(red: 0.5225631594657898, green: 0.7202061414718628, blue: 0.4632362723350525, alpha: 1.0)
     }
     
     public override func didMove(to view: SKView) {
@@ -145,7 +145,6 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             plant.name = "plant\(indexName)"
             plant.x = CGFloat.random(in: 0..<size.width)
             plant.y = CGFloat.random(in: 0..<size.height)
-            plant.size = CGFloat.random(in: 3...8)
             plants.append(plant)
             self.addChild(plant.getShape())
         }
@@ -223,8 +222,15 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             
         if let closestNode = closestNode {
             let distance = distanceBetweenPoints(first: thisNode.position, second: closestNode.position)
-            thisNode.run(SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))) {
+            let goToTarget = SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))
+            
+            let animate = SKAction.animate(with: [  SKTexture.init(imageNamed: "onça1")], timePerFrame: 1) 
+            
+            let group = SKAction.group([animate, goToTarget])
+            thisNode.run(group) {
                 animal.isSearchingForFood.toggle()
+                
+                thisNode.run(SKAction.animate(with: [SKTexture.init(imageNamed: "onça0")], timePerFrame: 1))
             }
             return
         }
