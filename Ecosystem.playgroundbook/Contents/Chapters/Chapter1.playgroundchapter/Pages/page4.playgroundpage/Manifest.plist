@@ -3,6 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>Introduction</string>
+	<string>Carnivores</string>
+	<key>LiveViewEdgeToEdge</key>
+	<false/>
+	<key>LiveViewMode</key>
+	<string>HiddenByDefault</string>
+	<key>PlaygroundLoggingMode</key>
+	<string>Off</string>
 </dict>
 </plist>

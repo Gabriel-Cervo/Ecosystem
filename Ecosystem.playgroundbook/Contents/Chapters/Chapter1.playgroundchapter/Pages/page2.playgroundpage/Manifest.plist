@@ -3,12 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Name</key>
-	<string>Herbivores</string>
+	<string>Plants</string>
 	<key>LiveViewEdgeToEdge</key>
 	<false/>
 	<key>LiveViewMode</key>
 	<string>HiddenByDefault</string>
-	<key>PlaygroundLoggingMode</key>
-	<string>Off</string>
 </dict>
 </plist>
