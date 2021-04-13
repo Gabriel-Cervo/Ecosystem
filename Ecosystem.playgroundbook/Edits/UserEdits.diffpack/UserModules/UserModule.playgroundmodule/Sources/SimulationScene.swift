@@ -206,11 +206,15 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     func updateAnimalsState() {
         for herbivore in herbivores {
-            herbivore.updateState()
+            if herbivore.isAlive {
+                herbivore.updateState()
+            }
         }
         
         for carnivore in carnivores {
-            carnivore.updateState()
+            if carnivore.isAlive {
+                carnivore.updateState()
+            }
         }
     }
     
