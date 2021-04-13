@@ -8,7 +8,7 @@ public class Animal {
     var name: String = "animal"
     var isSearchingForFood: Bool = false
     var type: AnimalType
-    var energy: Double = 60
+    var energy: Double = Double.random(in: 50.0..<100.0)
     var isAlive: Bool = true
     
     var state: AnimalState = .tired
@@ -30,7 +30,7 @@ public class Animal {
     
     func getShape() -> SKShapeNode {
         var shape: SKShapeNode = .init(rectOf: CGSize(width: size, height: size))
-        shape.fillColor = self.type == .Herbivore ? #colorLiteral(red: -0.234541654586792, green: 0.850436270236969, blue: 1.0099623203277588, alpha: 1.0) : #colorLiteral(red: 0.8894588351, green: 0.1420151591, blue: 0.0, alpha: 1.0)
+        shape.fillColor = self.type == .Herbivore ? #colorLiteral(red: 0.4653213024, green: 0.7332682014, blue: 0.2536376119, alpha: 1.0) : #colorLiteral(red: 0.8894588351, green: 0.1420151591, blue: 0.0, alpha: 1.0)
         shape.lineWidth = 0
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
@@ -41,25 +41,23 @@ public class Animal {
     }
     
     func eat() {
-        energy += 55.0
+        energy += self.type == .Carnivore ? Double.random(in: 50.0..<80.0) : Double.random(in: 20.0..<40.0)
     }
     
     func updateState() {
         if isAlive {
-            energy -= 0.1
+            energy -= 0.03
             if energy <= 0.0 {
                 isAlive = false
                 self.delegate?.dieOfHungry(animal: self)
-                return
-            } 
-            if energy <= 50.0 {
+            } else if energy <= 60.0 {
                 state = .hungry
                 if !isSearchingForFood {
                     self.delegate?.searchForFood(for: self)
                 }
-                return
-            } 
-            state = .tired
+            }  else {
+                state = .tired
+            }
         }
     }
 }

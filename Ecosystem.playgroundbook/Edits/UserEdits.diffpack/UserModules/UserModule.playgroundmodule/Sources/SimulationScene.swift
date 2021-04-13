@@ -5,19 +5,19 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var carnivores: [Animal] = []
-    var initialNumberOfPlants: Int = 20
-    var initialNumberOfHerbivores: Int = 10
-    var initialNumberOfCarnivores: Int = 2
+    var initialNumberOfPlants: Int = 70
+    var initialNumberOfHerbivores: Int = 15
+    var initialNumberOfCarnivores: Int = 5
     
     var hasShown: Bool = false
     
-    let maxNumberOfHerbivores: Int = 20
-    var maxNumberOfCarnivores: Int = 5
-    let maxNumberOfPlants: Int = 40
+    let maxNumberOfHerbivores: Int = 40
+    var maxNumberOfCarnivores: Int = 20
+    let maxNumberOfPlants: Int = 250
     
     let energyToReproduce: Double = 25.0
     
-    let objectVelocity: Double = 80.0
+    let objectVelocity: Double = 85.0
     
     public override func sceneDidLoad() {
         self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -27,21 +27,20 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        let wait = SKAction.wait(forDuration: 3)
+        let wait = SKAction.wait(forDuration: 2)
         let update = SKAction.run({ self.drawPlants(2) })
         let group1 = SKAction.sequence([wait, update])
         
-        let wait2 = SKAction.wait(forDuration: 2)
+        let wait2 = SKAction.wait(forDuration: 2.5)
         let update2 = SKAction.run({ self.drawHerbivores() })
         let group2 = SKAction.sequence([wait2, update2])
         
-        let wait3 = SKAction.wait(forDuration: 2)
+        let wait3 = SKAction.wait(forDuration: 3)
         let update3 = SKAction.run({ self.drawCarnivores() })
         let group3 = SKAction.sequence([wait3, update3])
         
         let group = SKAction.group([group1, group2, group3])
         let repeatedForever = SKAction.repeatForever(group)
-        
         self.run(repeatedForever)
     }
     
@@ -65,8 +64,11 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             
             if objectToRemove.name!.contains("plant") {
                 if let firstPlantWithIndexOf = plants.firstIndex(where: { $0.name == objectToRemove.name! }) {
-                    searchInArrayAndCallEat(for: eater, in: "herbivores")
-                    self.plants.remove(at: firstPlantWithIndexOf)
+                    let hasEaten = searchInArrayAndCallEat(for: eater, in: "herbivores")
+                    
+                    if hasEaten {
+                        self.plants.remove(at: firstPlantWithIndexOf)
+                    }
                 }
             } else {
                 if let firstHerbivoreWithIndex = herbivores.firstIndex(where: { $0.name == objectToRemove.name! }) {
