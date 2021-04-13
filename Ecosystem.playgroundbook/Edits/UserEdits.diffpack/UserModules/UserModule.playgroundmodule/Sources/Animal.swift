@@ -8,7 +8,7 @@ public class Animal {
     var name: String = "animal"
     var isSearchingForFood: Bool = false
     var type: AnimalType
-    var energy: Double = Double.random(in: 50.0..<100.0)
+    var energy: Double = Double.random(in: 45.0..<70.0)
     var isAlive: Bool = true
     
     var state: AnimalState = .tired
