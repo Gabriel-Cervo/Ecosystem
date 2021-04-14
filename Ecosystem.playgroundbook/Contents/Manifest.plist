@@ -22,7 +22,7 @@
 	<key>UserAutoImportedAuxiliaryModules</key>
 	<array/>
 	<key>UserModuleMode</key>
-	<string>Full</string>
+	<string>Disabled</string>
 	<key>HasMeaningfulResetPoint</key>
 	<false/>
 	<key>ImageReference</key>

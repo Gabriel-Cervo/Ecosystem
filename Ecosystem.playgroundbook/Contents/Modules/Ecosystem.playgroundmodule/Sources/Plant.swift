@@ -1,5 +1,3 @@
-
-
 import SpriteKit
 
 public class Plant {

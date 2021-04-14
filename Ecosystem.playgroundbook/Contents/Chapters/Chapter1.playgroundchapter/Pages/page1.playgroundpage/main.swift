@@ -1,10 +1,3 @@
-//#-hidden-code
-import PlaygroundSupport
-import SpriteKit
-
-PlaygroundPage.current.setLiveView(SimulationViewController())
-//#-end-hidden-code
-
 /*:
  ![Ecosystem Poster](cover.png)
  

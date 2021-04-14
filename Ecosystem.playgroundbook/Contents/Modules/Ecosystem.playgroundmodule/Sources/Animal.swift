@@ -1,4 +1,3 @@
-
 import SpriteKit
 
 public class Animal {

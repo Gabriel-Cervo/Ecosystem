@@ -5,9 +5,9 @@
 	<key>Name</key>
 	<string>Simulating the Ecosystem</string>
 	<key>LiveViewEdgeToEdge</key>
-	<false/>
+	<true/>
 	<key>LiveViewMode</key>
-	<string>HiddenByDefault</string>
+	<string>VisibleByDefault</string>
 	<key>PlaygroundLoggingMode</key>
 	<string>Off</string>
 </dict>
