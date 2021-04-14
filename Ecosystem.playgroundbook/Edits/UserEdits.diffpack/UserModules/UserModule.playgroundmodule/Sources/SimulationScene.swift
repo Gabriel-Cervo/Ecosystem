@@ -5,8 +5,8 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var carnivores: [Animal] = []
-    var initialNumberOfPlants: Int = 70
-    var initialNumberOfHerbivores: Int = 15
+    var initialNumberOfPlants: Int = 60
+    var initialNumberOfHerbivores: Int = 13
     var initialNumberOfCarnivores: Int = 5
     
     var hasShown: Bool = false
@@ -228,13 +228,15 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             let distance = distanceBetweenPoints(first: thisNode.position, second: closestNode.position)
             let goToTarget = SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))
             
-            let animate = SKAction.animate(with: [  SKTexture.init(imageNamed: "onça1")], timePerFrame: 1) 
+            let spriteNames = animal.type == .Carnivore ? ("onça0", "onça1") : ("capivara0", "capivara1")
+            
+            let animate = SKAction.animate(with: [  SKTexture.init(imageNamed: spriteNames.1)], timePerFrame: 1) 
             
             let group = SKAction.group([animate, goToTarget])
             thisNode.run(group) {
                 animal.isSearchingForFood.toggle()
                 
-                thisNode.run(SKAction.animate(with: [SKTexture.init(imageNamed: "onça0")], timePerFrame: 1))
+                thisNode.run(SKAction.animate(with: [SKTexture.init(imageNamed: spriteNames.0)], timePerFrame: 1))
             }
             return
         }

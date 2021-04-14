@@ -29,7 +29,7 @@ public class Animal {
     }
     
     func getShape() -> SKSpriteNode {
-        var shape: SKSpriteNode = self.type == .Carnivore ? .init(imageNamed: "onça0") : .init(imageNamed: "onça1")
+        var shape: SKSpriteNode = self.type == .Carnivore ? .init(imageNamed: "onça0") : .init(imageNamed: "capivara0")
         shape.size = CGSize(width: 64, height: 64)
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
