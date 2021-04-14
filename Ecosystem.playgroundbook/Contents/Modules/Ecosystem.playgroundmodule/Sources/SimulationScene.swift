@@ -5,8 +5,8 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var carnivores: [Animal] = []
-    var initialNumberOfPlants: Int = 60
-    var initialNumberOfHerbivores: Int = 13
+    var initialNumberOfPlants: Int = 55
+    var initialNumberOfHerbivores: Int = 10
     var initialNumberOfCarnivores: Int = 5
     
     var hasShown: Bool = false
@@ -18,7 +18,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     let energyToReproduce: Double = 25.0
     
     let objectVelocity: Double = 85.0
-    
+        
     public override func sceneDidLoad() {
         self.backgroundColor = #colorLiteral(red: 0.5225631594657898, green: 0.7202061414718628, blue: 0.4632362723350525, alpha: 1.0)
     }
