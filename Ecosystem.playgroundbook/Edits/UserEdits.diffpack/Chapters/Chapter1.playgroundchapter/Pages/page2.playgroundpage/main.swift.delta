@@ -6,13 +6,23 @@
 	<array>
 		<dict>
 			<key>ModifiedContent</key>
-			<string> </string>
-			<key>ModifiedRange</key>
-			<string>{2049, 1}</string>
-			<key>OriginalContent</key>
 			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2122, 0}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number from 1 to </string>
 			<key>OriginalRange</key>
-			<string>{2048, 0}</string>
+			<string>{2121, 22}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2123, 0}</string>
+			<key>OriginalContent</key>
+			<string>##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2144, 7}</string>
 		</dict>
 	</array>
 	<key>File</key>

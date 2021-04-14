@@ -7,6 +7,7 @@ public class Animal {
     var name: String = "animal"
     var isSearchingForFood: Bool = false
     var type: AnimalType
+    var typeNumber: Int = 1
     var energy: Double = Double.random(in: 45.0..<70.0)
     var isAlive: Bool = true
     
@@ -28,7 +29,7 @@ public class Animal {
     }
     
     func getShape() -> SKSpriteNode {
-        var shape: SKSpriteNode = self.type == .Carnivore ? .init(imageNamed: "onça0") : .init(imageNamed: "capivara0")
+        var shape: SKSpriteNode = self.type == .Carnivore ? .init(imageNamed: "carnivore\(typeNumber)") : .init(imageNamed: "herbivore\(typeNumber)")
         shape.size = CGSize(width: 64, height: 64)
         shape.position = CGPoint(x: x, y: y)
         shape.name = name

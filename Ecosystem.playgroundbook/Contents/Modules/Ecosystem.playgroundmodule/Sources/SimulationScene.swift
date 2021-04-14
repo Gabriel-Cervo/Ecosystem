@@ -9,6 +9,10 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var initialNumberOfHerbivores: Int = 10
     var initialNumberOfCarnivores: Int = 5
     
+    var typeOfPlant: Int = 1
+    var typeOfHerbivore: Int = 1
+    var typeOfCarnivore: Int = 1
+    
     var hasShown: Bool = false
     
     let maxNumberOfHerbivores: Int = 40
@@ -126,10 +130,15 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         return nil
     }
     
-    public func draw() {
+    public func start() {
+        self.removeAllChildren()
         drawPlants(initialNumberOfPlants)
         drawHerbivores()
         drawCarnivores()
+    }
+    
+    public func draw() {
+        start()
     }
     
     func drawPlants(_ numOfPlants: Int) {
@@ -143,6 +152,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             var plant = Plant()
             let indexName = isPlantsListEmpty ? i : plants.count + i + 1
             plant.name = "plant\(indexName)"
+            plant.typeNumber = typeOfPlant
             plant.x = CGFloat.random(in: 0..<size.width)
             plant.y = CGFloat.random(in: 0..<size.height)
             plants.append(plant)
@@ -165,6 +175,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             herbivore.name = "herbivore\(indexName)"   
             herbivore.delegate = self
             herbivore.type = .Herbivore
+            herbivore.typeNumber = typeOfHerbivore
             herbivore.x = CGFloat.random(in: 0..<size.width)
             herbivore.y = CGFloat.random(in: 0..<size.height)
             herbivores.append(herbivore)
@@ -187,6 +198,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             carnivore.name = "carnivore\(indexName)"   
             carnivore.delegate = self
             carnivore.type = .Carnivore
+            carnivore.typeNumber = typeOfCarnivore
             carnivore.x = CGFloat.random(in: 0..<size.width)
             carnivore.y = CGFloat.random(in: 0..<size.height)
             carnivores.append(carnivore)
@@ -228,7 +240,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             let distance = distanceBetweenPoints(first: thisNode.position, second: closestNode.position)
             let goToTarget = SKAction.move(to: closestNode.position, duration: (Double(distance) / objectVelocity))
             
-            let spriteNames = animal.type == .Carnivore ? ("onça0", "onça1") : ("capivara0", "capivara1")
+            let spriteNames = animal.type == .Carnivore ? ("carnivore\(typeOfCarnivore)", "carnivore\(typeOfCarnivore)_eating") : ("herbivore\(typeOfHerbivore)", "herbivore\(typeOfHerbivore)_eating")
             
             let animate = SKAction.animate(with: [  SKTexture.init(imageNamed: spriteNames.1)], timePerFrame: 1) 
             

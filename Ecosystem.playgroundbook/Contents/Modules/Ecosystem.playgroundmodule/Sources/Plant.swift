@@ -5,6 +5,7 @@ public class Plant {
     var y: CGFloat
     var name: String = "plant"
     var size: Int = 10
+    var typeNumber: Int = 1
     
     init() {
         x = 0
@@ -17,7 +18,7 @@ public class Plant {
     }
     
     func getShape() -> SKSpriteNode {
-        var shape: SKSpriteNode = .init(imageNamed: "planta\(Int.random(in: 0..<2))")
+        var shape: SKSpriteNode = .init(imageNamed: "plant\(typeNumber)")
         shape.position = CGPoint(x: x, y: y)
         shape.name = name
         shape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size, height: size))

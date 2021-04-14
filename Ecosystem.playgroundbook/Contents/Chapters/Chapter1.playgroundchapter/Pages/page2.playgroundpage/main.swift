@@ -1,3 +1,9 @@
+//#-hidden-code
+import PlaygroundSupport
+import Ecosystem
+import SpriteKit
+//#-end-hidden-code
+
 /*:
  
 # Plants
@@ -27,4 +33,17 @@ The plants are the biggest and one of the most diverse group of living beings on
  - Note:
     There is no error handling if you type a invalid number, so i'm gonna trust you to not break the program!
  */
-var typeOfPlant: Int = /*#-editable-code*/<#T##Number from 1 to 3##Int#>/*#-end-editable-code*/
+var typeOfPlant: Int = /*#-editable-code*/1/*#-end-editable-code*/
+
+
+//#-hidden-code
+public func startSystem() {
+    guard let remoteView = PlaygroundPage.current.liveView as ? PlaygroundRemoteLiveViewProxy else {
+        fatalError("Always-on live view not configured in this page's LiveView.swift")
+    }
+    
+    remoteView.send(.integer(typeOfPlant))
+}
+
+startSystem()
+//#-end-hidden-code
