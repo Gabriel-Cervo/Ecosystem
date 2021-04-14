@@ -21,4 +21,10 @@ The plants are the biggest and one of the most diverse group of living beings on
  - Callout(Taking good care of a plant):
     If you follow the last tip, try to not let your plant in the sun's light for too long, or they die! Try to maintain a good balance of time 😊. And don't forget to give water to the soil.
  
+ ## Let's start building the simulation 🔧
+ Now that you know the basics of plants, I think we can start building our own ecosystem!\Don't worry! You don't need to know how to code, everything here will be very intuitive!\First, you need to put below the type of the plant you want in your ecosystem, try changing the variable below to values from 1 to 3. And then try hitting "Run my code" to see what type of plant it appears.
+ 
+ - Note:
+    There is no error handling if you type a invalid number, so i'm gonna trust you to not break the program!
  */
+var typeOfPlant: Int = /*#-editable-code*/<#T##Number from 1 to 3##Int#>/*#-end-editable-code*/
