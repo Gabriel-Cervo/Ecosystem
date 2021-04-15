@@ -51,6 +51,13 @@ public func startSystem() {
     }
     
     remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen)]))
+    
+    savePersistent()
+}
+
+func savePersistent() {
+    PlaygroundKeyValueStore.current["typeOfPlant"] = .integer(typeOfPlant)
+    PlaygroundKeyValueStore.current["numberOfPlants"] = .integer(numberOfPlantsInScreen)
 }
 
 startSystem()

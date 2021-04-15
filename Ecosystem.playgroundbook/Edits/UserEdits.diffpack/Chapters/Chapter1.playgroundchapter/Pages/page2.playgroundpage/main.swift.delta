@@ -8,21 +8,31 @@
 			<key>ModifiedContent</key>
 			<string></string>
 			<key>ModifiedRange</key>
-			<string>{2122, 0}</string>
+			<string>{2353, 0}</string>
 			<key>OriginalContent</key>
-			<string>&lt;#T##Number from 1 to </string>
+			<string>&lt;#T##Type of Plant (</string>
 			<key>OriginalRange</key>
-			<string>{2121, 22}</string>
+			<string>{2353, 20}</string>
 		</dict>
 		<dict>
 			<key>ModifiedContent</key>
 			<string></string>
 			<key>ModifiedRange</key>
-			<string>{2123, 0}</string>
+			<string>{2354, 0}</string>
 			<key>OriginalContent</key>
-			<string>##Int#&gt;</string>
+			<string> to 3)##Int#&gt;</string>
 			<key>OriginalRange</key>
-			<string>{2144, 7}</string>
+			<string>{2374, 13}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>100</string>
+			<key>ModifiedRange</key>
+			<string>{2431, 3}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of plants##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2464, 28}</string>
 		</dict>
 	</array>
 	<key>File</key>
