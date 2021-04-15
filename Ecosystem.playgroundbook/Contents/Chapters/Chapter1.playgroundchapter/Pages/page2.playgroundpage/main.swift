@@ -28,12 +28,20 @@ The plants are the biggest and one of the most diverse group of living beings on
     If you follow the last tip, try to not let your plant in the sun's light for too long, or they die! Try to maintain a good balance of time 😊. And don't forget to give water to the soil.
  
  ## Let's start building the simulation 🔧
- Now that you know the basics of plants, I think we can start building our own ecosystem!\Don't worry! You don't need to know how to code, everything here will be very intuitive!\First, you need to put below the type of the plant you want in your ecosystem, try changing the variable below to values from 1 to 3. And then try hitting "Run my code" to see what type of plant it appears.
+ Now that you know the basics of plants, I think we can start building our own ecosystem!
+    Don't worry! You don't need to know how to code, everything here will be very intuitive!
+    First, you need to put below the type of the plant you want in your ecosystem, try changing the variable below to values from 1 to 3. You can also modify the number of plants in screen to be of your liking. And then try hitting "Run my code" to see what type of plant it appears.
  
  - Note:
     There is no error handling if you type a invalid number, so i'm gonna trust you to not break the program!
+ 
+ * Note:
+    You can put as many plants in screen as you want, but the upper limit is 150, that way you will not have any performance issues :)
+    
  */
-var typeOfPlant: Int = /*#-editable-code*/1/*#-end-editable-code*/
+var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
+var numberOfPlantsInScreen: Int = /*#-editable-code*/<#T##Number of plants##Int#>/*#-end-editable-code*/
+
 
 
 //#-hidden-code
@@ -42,7 +50,7 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    remoteView.send(.integer(typeOfPlant))
+    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen)]))
 }
 
 startSystem()

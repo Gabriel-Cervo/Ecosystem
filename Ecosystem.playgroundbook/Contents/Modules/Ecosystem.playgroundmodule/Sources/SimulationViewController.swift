@@ -1,5 +1,6 @@
 import UIKit
 import SpriteKit
+import PlaygroundSupport
 
 public class SimulationViewController: UIViewController {
     var scene = SimulationScene()
@@ -15,15 +16,12 @@ public class SimulationViewController: UIViewController {
 
 extension SimulationViewController: PlaygroundLiveViewMessageHandler {
     public func receive(_ message: PlaygroundValue) {
-        if case let .integer(info) = message {
-            switch info {
-            case info:
-                scene.typeOfPlant = info
-                scene.start()
-                break
-            default:
-                break
-            }
-        }
+        guard case let .dictionary(info) = message else { return }
+        guard case let .integer(typeOfPlant) = info["plantType"] else { return }
+        guard case let .integer(numberOfPlantsInScreen) = info["numberOfPlants"] else { return }
+
+        scene.initialNumberOfPlants = numberOfPlantsInScreen
+        scene.typeOfPlant = typeOfPlant
+        scene.start()
     }
 }

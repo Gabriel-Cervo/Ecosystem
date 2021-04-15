@@ -5,19 +5,20 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     var plants: [Plant] = []
     var herbivores: [Animal] = []
     var carnivores: [Animal] = []
-    var initialNumberOfPlants: Int = 55
-    var initialNumberOfHerbivores: Int = 10
-    var initialNumberOfCarnivores: Int = 5
+    var initialNumberOfPlants: Int = 0
+    var initialNumberOfHerbivores: Int = 0
+    var initialNumberOfCarnivores: Int = 0
     
     var typeOfPlant: Int = 1
     var typeOfHerbivore: Int = 1
     var typeOfCarnivore: Int = 1
     
     var hasShown: Bool = false
+    var runSimulation: Bool = false
     
     let maxNumberOfHerbivores: Int = 40
     var maxNumberOfCarnivores: Int = 20
-    let maxNumberOfPlants: Int = 250
+    let maxNumberOfPlants: Int = 150
     
     let energyToReproduce: Double = 25.0
     
@@ -31,21 +32,23 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        let wait = SKAction.wait(forDuration: 2)
-        let update = SKAction.run({ self.drawPlants(2) })
-        let group1 = SKAction.sequence([wait, update])
-        
-        let wait2 = SKAction.wait(forDuration: 2.5)
-        let update2 = SKAction.run({ self.drawHerbivores() })
-        let group2 = SKAction.sequence([wait2, update2])
-        
-        let wait3 = SKAction.wait(forDuration: 3)
-        let update3 = SKAction.run({ self.drawCarnivores() })
-        let group3 = SKAction.sequence([wait3, update3])
-        
-        let group = SKAction.group([group1, group2, group3])
-        let repeatedForever = SKAction.repeatForever(group)
-        self.run(repeatedForever)
+        if runSimulation {
+            let wait = SKAction.wait(forDuration: 2)
+            let update = SKAction.run({ self.drawPlants(2) })
+            let group1 = SKAction.sequence([wait, update])
+            
+            let wait2 = SKAction.wait(forDuration: 2.5)
+            let update2 = SKAction.run({ self.drawHerbivores() })
+            let group2 = SKAction.sequence([wait2, update2])
+            
+            let wait3 = SKAction.wait(forDuration: 3)
+            let update3 = SKAction.run({ self.drawCarnivores() })
+            let group3 = SKAction.sequence([wait3, update3])
+            
+            let group = SKAction.group([group1, group2, group3])
+            let repeatedForever = SKAction.repeatForever(group)
+            self.run(repeatedForever)
+        }
     }
     
     public func didBegin(_ contact: SKPhysicsContact) {
@@ -213,7 +216,9 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             return
         }
         
-        updateAnimalsState()
+        if runSimulation {
+            updateAnimalsState()
+        }
     }
     
     func updateAnimalsState() {
