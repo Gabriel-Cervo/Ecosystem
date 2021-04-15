@@ -36,27 +36,17 @@
 		</dict>
 		<dict>
 			<key>ModifiedContent</key>
-			<string></string>
+			<string>2</string>
 			<key>ModifiedRange</key>
-			<string>{2377, 0}</string>
+			<string>{2377, 1}</string>
 			<key>OriginalContent</key>
-			<string>&lt;#T##Type of herbivore (</string>
+			<string>&lt;#T##Type of herbivore (1 to 3)##Int#&gt;</string>
 			<key>OriginalRange</key>
-			<string>{2435, 24}</string>
+			<string>{2435, 38}</string>
 		</dict>
 		<dict>
 			<key>ModifiedContent</key>
-			<string></string>
-			<key>ModifiedRange</key>
-			<string>{2378, 0}</string>
-			<key>OriginalContent</key>
-			<string> to 3)##Int#&gt;</string>
-			<key>OriginalRange</key>
-			<string>{2460, 13}</string>
-		</dict>
-		<dict>
-			<key>ModifiedContent</key>
-			<string>12</string>
+			<string>15</string>
 			<key>ModifiedRange</key>
 			<string>{2459, 2}</string>
 			<key>OriginalContent</key>
@@ -66,13 +56,23 @@
 		</dict>
 		<dict>
 			<key>ModifiedContent</key>
-			<string>2</string>
+			<string></string>
 			<key>ModifiedRange</key>
-			<string>{2532, 1}</string>
+			<string>{2532, 0}</string>
 			<key>OriginalContent</key>
-			<string>&lt;#T##Type of carnivore (1 to 3)##Int#&gt;</string>
+			<string>&lt;#T##Type of carnivore (1 to </string>
 			<key>OriginalRange</key>
-			<string>{2657, 38}</string>
+			<string>{2657, 29}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2533, 0}</string>
+			<key>OriginalContent</key>
+			<string>)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2687, 8}</string>
 		</dict>
 		<dict>
 			<key>ModifiedContent</key>
@@ -84,8 +84,28 @@
 			<key>OriginalRange</key>
 			<string>{2776, 32}</string>
 		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2686, 0}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##0 or </string>
+			<key>OriginalRange</key>
+			<string>{2879, 10}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2687, 0}</string>
+			<key>OriginalContent</key>
+			<string>##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2890, 7}</string>
+		</dict>
 	</array>
 	<key>File</key>
-	<string>Chapters/Chapter1.playgroundchapter/Pages/page4.playgroundpage/main.swift</string>
+	<string>Chapters/Chapter2.playgroundchapter/Pages/page1.playgroundpage/main.swift</string>
 </dict>
 </plist>

@@ -33,6 +33,14 @@ extension SimulationViewController: PlaygroundLiveViewMessageHandler {
                 scene.initialNumberOfCarnivores = numberOfCarnivores
             }
         
+        if case let .integer(startSimulation) = info["startSimulation"] {
+            if startSimulation == 0 {
+                scene.runSimulation = false
+            } else {
+                scene.runSimulation = true
+            }
+        }
+        
         scene.start()
     }
 }

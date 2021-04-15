@@ -172,7 +172,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
         
         let animalsToDraw = isHerbivorousListEmpty ? initialNumberOfHerbivores : self.herbivores.filter({ $0.energy >= energyToReproduce }).count % 2
         
-        for i in 0..<initialNumberOfHerbivores {
+        for i in 0..<animalsToDraw {
             var herbivore = Animal()
             let indexName = isHerbivorousListEmpty ? i : herbivores.count + i + 1
             herbivore.name = "herbivore\(indexName)"   
