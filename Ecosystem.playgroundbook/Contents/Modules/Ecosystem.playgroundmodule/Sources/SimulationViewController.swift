@@ -15,13 +15,15 @@ public class SimulationViewController: UIViewController {
 
 extension SimulationViewController: PlaygroundLiveViewMessageHandler {
     public func receive(_ message: PlaygroundValue) {
-        switch message {
-        case let .integer(info):
-            scene.typeOfPlant = info
-            scene.start()
-            break
-        default:
-            print("Mensagem não tratada")
+        if case let .integer(info) = message {
+            switch info {
+            case info:
+                scene.typeOfPlant = info
+                scene.start()
+                break
+            default:
+                break
+            }
         }
     }
 }

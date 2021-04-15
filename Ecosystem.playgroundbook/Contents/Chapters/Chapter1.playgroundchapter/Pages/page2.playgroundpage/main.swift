@@ -38,7 +38,7 @@ var typeOfPlant: Int = /*#-editable-code*/1/*#-end-editable-code*/
 
 //#-hidden-code
 public func startSystem() {
-    guard let remoteView = PlaygroundPage.current.liveView as ? PlaygroundRemoteLiveViewProxy else {
+    guard let remoteView = PlaygroundPage.current.liveView as? PlaygroundRemoteLiveViewProxy else {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
