@@ -54,7 +54,7 @@ public class Animal {
                 if !isSearchingForFood {
                     self.delegate?.searchForFood(for: self)
                 }
-            }  else {
+            } else {
                 state = .tired
             }
         }

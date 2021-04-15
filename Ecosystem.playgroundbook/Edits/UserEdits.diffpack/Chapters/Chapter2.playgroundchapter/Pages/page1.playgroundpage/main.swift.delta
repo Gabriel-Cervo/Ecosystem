@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{1448, 0}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Type of Plant (</string>
+			<key>OriginalRange</key>
+			<string>{1448, 20}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{1449, 0}</string>
+			<key>OriginalContent</key>
+			<string> to 3)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{1469, 13}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>55</string>
+			<key>ModifiedRange</key>
+			<string>{1526, 2}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of plants##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{1559, 28}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>2</string>
+			<key>ModifiedRange</key>
+			<string>{1600, 1}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Type of herbivore (1 to 3)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{1659, 38}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>10</string>
+			<key>ModifiedRange</key>
+			<string>{1682, 2}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of herbivores##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{1778, 32}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>2</string>
+			<key>ModifiedRange</key>
+			<string>{1756, 1}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Type of carnivore (1 to 3)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{1882, 38}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>5</string>
+			<key>ModifiedRange</key>
+			<string>{1838, 1}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of carnivores##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2001, 32}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{1909, 0}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##0 or </string>
+			<key>OriginalRange</key>
+			<string>{2103, 10}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{1910, 0}</string>
+			<key>OriginalContent</key>
+			<string>##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2114, 7}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter2.playgroundchapter/Pages/page1.playgroundpage/main.swift</string>
+</dict>
+</plist>
