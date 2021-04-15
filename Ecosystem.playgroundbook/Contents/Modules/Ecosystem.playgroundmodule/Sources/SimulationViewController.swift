@@ -22,6 +22,17 @@ extension SimulationViewController: PlaygroundLiveViewMessageHandler {
 
         scene.initialNumberOfPlants = numberOfPlantsInScreen
         scene.typeOfPlant = typeOfPlant
+        
+        if case let .integer(typeOfHerbivore) = info["herbivoreType"], case let .integer(numberOfHerbivores) = info["numberOfHerbivores"] {
+                scene.typeOfHerbivore = typeOfHerbivore
+                scene.initialNumberOfHerbivores = numberOfHerbivores
+            }
+        
+        if case let .integer(typeOfCarnivore) = info["carnivoreType"], case let .integer(numberOfCarnivores) = info["numberOfCarnivores"] {
+                scene.typeOfCarnivore = (typeOfCarnivore)
+                scene.initialNumberOfCarnivores = numberOfCarnivores
+            }
+        
         scene.start()
     }
 }
