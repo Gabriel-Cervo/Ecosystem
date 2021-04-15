@@ -25,7 +25,7 @@ Know that you learned everything from here, we can start simulating our ecosyste
  The simulation is all yours now! Enjoy testing new combations of animals and plants!
  
  + Callout(João):
-    Hey WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject spoken here. Take care and good luck in the simulation!
+    Hey, WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject spoken here. Take care and good luck in the simulation!
 */
 
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
