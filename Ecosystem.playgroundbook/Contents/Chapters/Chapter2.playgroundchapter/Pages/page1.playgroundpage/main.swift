@@ -21,7 +21,7 @@ Know that you learned everything from here, we can start simulating our ecosyste
 - Animals reproduce, but it depends on how many of them are not starving. For each two animals, another one is born. They appear randomly in the screen.
 - Plants are always growing from the ground as long as there is a herbivore.
  
- You can change the runSimulation variable from 0 (not running) to 1 (running), that way you can test new types of animals and plants.
+ You can change the runSimulation variable from false (not running) to true (running), that way you can test new types of animals and plants.
  Very simple, huh? The key here is to balance the number between each type of animals and plants, not letting the ecosystem get unbalanced.
  The simulation is all yours now! Enjoy testing new combations of animals and plants!
  
@@ -44,7 +44,7 @@ var typeOfCarnivore: Int = /*#-editable-code*/<#T##Type of carnivore (1 to 3)##I
 var numberOfCarnivoresInScreen: Int = /*#-editable-code*/<#T##Number of carnivores##Int#>/*#-end-editable-code*/
 
 
-var runSimulation: Int = /*#-editable-code*/<#T##0 or 1##Int#>/*#-end-editable-code*/
+var runSimulation: Bool = /*#-editable-code*/<#T##true or false##Bool#>/*#-end-editable-code*/
 
 
 //#-hidden-code
@@ -53,7 +53,7 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen), "herbivoreType": .integer(typeOfHerbivore), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen), "carnivoreType": .integer(typeOfCarnivore), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen), "startSimulation": .integer(runSimulation)]))
+    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen), "herbivoreType": .integer(typeOfHerbivore), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen), "carnivoreType": .integer(typeOfCarnivore), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen), "startSimulation": .boolean(runSimulation)]))
     
 }
 
