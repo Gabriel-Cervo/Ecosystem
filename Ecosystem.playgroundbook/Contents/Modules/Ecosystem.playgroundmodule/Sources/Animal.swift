@@ -40,7 +40,7 @@ public class Animal {
     }
     
     func eat() {
-        energy += self.type == .Carnivore ? Double.random(in: 50.0..<80.0) : Double.random(in: 20.0..<40.0)
+        energy += self.type == .Carnivore ? Double.random(in: 40.0..<70.0) : Double.random(in: 10.0..<20.0)
     }
     
     func updateState() {

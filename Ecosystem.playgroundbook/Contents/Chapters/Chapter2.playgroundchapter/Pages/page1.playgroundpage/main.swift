@@ -12,18 +12,22 @@ import SpriteKit
     
 Know that you learned everything from here, we can start simulating our ecosystem!! The simulation here will be very simple. Let me explain how the simulation will work:
  
+- The simulation here is a **very simple** way showing how a ecosystem works. The objective is not to be realistic, but to be a funny way of showing the topic from this playground.
 - All animals feel hungry, when they reach a certain percentage, they start searching for food.
 - Herbivorous animals eat the plants.
 - Carnivorous animals eat the herbivorous ones.
-- When animals are tired, they sleep. You may see carnivorous a lot more often staying in the same place.
-- When a animal can't find food, he dies of hunger
-- Animals reproduce, but it depends on how many of them are not starving. For each two animals, another one is born.
-- Plants are always growing from the ground
+- When animals are tired, they sleep. You may see carnivorous a lot more often staying in the same place, because they get more energy from their meal.
+- When a animal can't find food, he dies of hunger. In the simulation it is represented by changing his opacity.
+- Animals reproduce, but it depends on how many of them are not starving. For each two animals, another one is born. They appear randomly in the screen.
+- Plants are always growing from the ground as long there is a herbivore.
  
  You can change the runSimulation variable from 0 (not running) to 1 (running), that way you can test new types of animals and plants!
  Very simple, huh? They key here is to balance the number between each type of animals and plants, not letting them starve.
  The simulation is all yours now! Enjoy testing new combations of animals and plants!
  
+ - Note:
+    The limits for plants is 250. For herbivores and carnivores is 100.
+
  + Callout(João):
     Hey, WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject spoken here. Take care and good luck in the simulation!
 */

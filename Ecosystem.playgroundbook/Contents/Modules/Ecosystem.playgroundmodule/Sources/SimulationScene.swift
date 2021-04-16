@@ -15,10 +15,11 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     var hasShown: Bool = false
     var runSimulation: Bool = false
+    var hasStarted: Bool = false
     
-    let maxNumberOfHerbivores: Int = 40
-    var maxNumberOfCarnivores: Int = 20
-    let maxNumberOfPlants: Int = 150
+    let maxNumberOfHerbivores: Int = 100
+    var maxNumberOfCarnivores: Int = 100
+    let maxNumberOfPlants: Int = 250
     
     let energyToReproduce: Double = 25.0
     
@@ -121,11 +122,13 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     public func start() {
         self.removeAllChildren()
+        hasStarted = false
         clearLists()
         drawPlants(initialNumberOfPlants)
         drawHerbivores()
         drawCarnivores()
         runSpawns()
+        hasStarted = true
     }
     
     func clearLists() {
@@ -139,11 +142,22 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             return
         }
         
-        let isPlantsListEmpty: Bool = plants.count == 0
+        if herbivores.count == 0 && hasStarted {
+            return
+        }
+        
+        if initialNumberOfPlants > maxNumberOfPlants {
+            initialNumberOfPlants = maxNumberOfPlants
+        }
+        
+        let numberOfPlantsActual = plants.count
         
         for i in 0..<numOfPlants {
+            if plants.count >= maxNumberOfPlants {
+                return
+            }
             var plant = Plant()
-            let indexName = isPlantsListEmpty ? i : plants.count + i + 1
+            let indexName = numberOfPlantsActual == 0 ? i : plants.count + i + 1
             plant.name = "plant\(indexName)"
             plant.typeNumber = typeOfPlant
             plant.x = CGFloat.random(in: 0..<size.width)
@@ -158,13 +172,26 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             return
         }
         
-        let isHerbivorousListEmpty: Bool = herbivores.count == 0
+        if initialNumberOfHerbivores > maxNumberOfHerbivores {
+            initialNumberOfHerbivores = maxNumberOfHerbivores
+        }
+                
+        var animalsToDraw = hasStarted ? self.herbivores.filter({ $0.energy >= energyToReproduce }).count % 2 : initialNumberOfHerbivores
+                
+        let quantityOfHerbivores = herbivores.count
         
-        let animalsToDraw = isHerbivorousListEmpty ? initialNumberOfHerbivores : self.herbivores.filter({ $0.energy >= energyToReproduce }).count % 2
+        let totalAfterDraw = animalsToDraw + quantityOfHerbivores
+
+        if  totalAfterDraw > maxNumberOfHerbivores {
+            animalsToDraw = totalAfterDraw - maxNumberOfHerbivores
+        }
         
         for i in 0..<animalsToDraw {
+            if herbivores.count >= maxNumberOfHerbivores {
+                return
+            }
             var herbivore = Animal()
-            let indexName = isHerbivorousListEmpty ? i : herbivores.count + i + 1
+            let indexName = quantityOfHerbivores == 0 ? i : herbivores.count + i + 1
             herbivore.name = "herbivore\(indexName)"   
             herbivore.delegate = self
             herbivore.type = .Herbivore
@@ -173,21 +200,34 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
             herbivore.y = CGFloat.random(in: 0..<size.height)
             herbivores.append(herbivore)
             self.addChild(herbivore.getShape())
-            }
         }
+    }
     
     func drawCarnivores() {
         if carnivores.count >= maxNumberOfCarnivores {
             return
         }
         
-        let isCarnivoresListEmpty: Bool = carnivores.count == 0
+        if initialNumberOfCarnivores > maxNumberOfCarnivores {
+            initialNumberOfCarnivores = maxNumberOfCarnivores
+        }
+                
+        var animalsToDraw = hasStarted ? self.carnivores.filter({ $0.energy >= energyToReproduce }).count % 2 : initialNumberOfCarnivores
         
-        let animalsToDraw = isCarnivoresListEmpty ? initialNumberOfCarnivores : self.carnivores.filter({ $0.energy >= energyToReproduce }).count % 2
+        let quantityOfCarnivores = carnivores.count
+        
+        let totalAfterDraw = animalsToDraw + quantityOfCarnivores
+
+        if  totalAfterDraw > maxNumberOfCarnivores {
+            animalsToDraw = totalAfterDraw - maxNumberOfCarnivores
+        }
         
         for i in 0..<animalsToDraw {
+            if carnivores.count >= maxNumberOfCarnivores {
+                return
+            }
             var carnivore = Animal()
-            let indexName = isCarnivoresListEmpty ? i : carnivores.count + i + 1
+            let indexName = quantityOfCarnivores == 0 ? i : carnivores.count + i + 1
             carnivore.name = "carnivore\(indexName)"   
             carnivore.delegate = self
             carnivore.type = .Carnivore
@@ -201,15 +241,15 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     func runSpawns() {
         if runSimulation {
-            let wait = SKAction.wait(forDuration: 4)
+            let wait = SKAction.wait(forDuration: 3)
             let update = SKAction.run({ self.drawPlants(2) })
             let group1 = SKAction.sequence([wait, update])
             
-            let wait2 = SKAction.wait(forDuration: 5)
+            let wait2 = SKAction.wait(forDuration: 4)
             let update2 = SKAction.run({ self.drawHerbivores() })
             let group2 = SKAction.sequence([wait2, update2])
             
-            let wait3 = SKAction.wait(forDuration: 6)
+            let wait3 = SKAction.wait(forDuration: 4)
             let update3 = SKAction.run({ self.drawCarnivores() })
             let group3 = SKAction.sequence([wait3, update3])
             

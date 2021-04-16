@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2076, 0}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Type of Plant (</string>
+			<key>OriginalRange</key>
+			<string>{2076, 20}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string></string>
+			<key>ModifiedRange</key>
+			<string>{2077, 0}</string>
+			<key>OriginalContent</key>
+			<string> to 3)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2097, 13}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>100</string>
+			<key>ModifiedRange</key>
+			<string>{2154, 3}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of plants##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2187, 28}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>2</string>
+			<key>ModifiedRange</key>
+			<string>{2229, 1}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Type of herbivore (1 to 3)##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2287, 38}</string>
+		</dict>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>30</string>
+			<key>ModifiedRange</key>
+			<string>{2311, 2}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##Number of herbivores##Int#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{2406, 32}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Chapter1.playgroundchapter/Pages/page3.playgroundpage/main.swift</string>
+</dict>
+</plist>
