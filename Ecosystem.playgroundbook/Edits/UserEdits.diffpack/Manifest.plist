@@ -18,16 +18,16 @@
 		<array>
 			<dict>
 				<key>File</key>
-				<string>Chapters/Chapter2.playgroundchapter/Pages/page1.playgroundpage/UserManifest.plist</string>
+				<string>Chapters/Chapter1.playgroundchapter/Pages/page3.playgroundpage/UserManifest.plist</string>
 			</dict>
 		</array>
 		<key>Modified</key>
 		<array>
 			<dict>
 				<key>Diff</key>
-				<string>Chapters/Chapter2.playgroundchapter/Pages/page1.playgroundpage/main.swift.delta</string>
+				<string>Chapters/Chapter1.playgroundchapter/Pages/page3.playgroundpage/main.swift.delta</string>
 				<key>File</key>
-				<string>Chapters/Chapter2.playgroundchapter/Pages/page1.playgroundpage/main.swift</string>
+				<string>Chapters/Chapter1.playgroundchapter/Pages/page3.playgroundpage/main.swift</string>
 			</dict>
 		</array>
 		<key>Removed</key>

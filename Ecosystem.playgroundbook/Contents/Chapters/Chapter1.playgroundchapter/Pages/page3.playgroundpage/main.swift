@@ -8,32 +8,28 @@ import SpriteKit
  
 # Herbivores
     
-The plants are the biggest and one of the most diverse group of living beings on the planet. They are the basis of terrestrial ecosystems. Plants also provide us a substantial part of oxygen, which we need to survive, so it's important to take care of them!!
+Herbivore is an animal that eat plant-based material (plants, algae, seeds...) as his main component of its diet. They range in size from tiny insects to large animals, such the elephant.
  
 - Callout(Did you know? 💡):
-    Trees are a plant! Some people don't know this because they are big, but in fact, they are a very large plant!
- 
- ### Life Cycle
- 
- Plants starts life as a seed, which germinates and grows into a plant. The mature plant produces flowers, which are fertilised and produce seeds in a fruit or seedpod. The plant eventually dies, leaving seeds which will germinate to produce new plants, and the cycle repeats itself.
- 
- - Callout(Try it by yourself!):
-    Try cutting the branch of a healthy plant and put it in a suitable medium, such as moist soil. And then just wait for the plant to grow! But be aware to take good care of the plant, otherwise it will die and not grow 😓
+    The biggest dinosaur was a herbivorous one! According to the paleontologist Gregory Paul, the Argentinosaurus had a approximate mass of 65 to 70 tons 🤯.
  
  ### Nutrition
  
- Plants get their nutrition from photosynthesis, that is, aborbing energy from the sun's light. There are some carnivorous plants that complements their nutrition eating little insects.
+ Herbivores depend on plants for survival, so if the plant population declines, they can't get enough food 😦. Many herbivores spend a big part of their life eating. Elephants for example, need about 300 pounds of food a day, and it takes a long time to eat that much of leaves and grass.
  
- - Callout(Taking good care of a plant):
-    If you follow the last tip, try to not let your plant in the sun's light for too long, or they die! Try to maintain a good balance of time 😊. And don't forget to give water to the soil.
+ ### Impact
  
- ## Let's start building the simulation 🔧
- Now that you know the basics of plants, I think we can start building our own ecosystem!
-    Don't worry! You don't need to know how to code, everything here will be very intuitive!
-    First, you need to put below the type of the plant you want in your ecosystem, try changing the variable below to values from 1 to 3. You can also modify the number of plants in screen to be of your liking. And then try hitting "Run my code" to see what type of plant it appears.
+ They have an important role in maintaining the ecosystem by preventing an overgrowth of vegetation. Many plants relies on the herbivores, like bees, to help them reproduce.
+ They are termed as the primary consumers in the food cycle, since they can survive solely on plant matter. They are one of the most diverse group too! Having a group of ~4000 species.
+ 
+ - Callout(See it by yourself!):
+   Try naming at least 10 species of herbivores in your region, I bet you know a lot of them 😉
+ 
+ ## Let's continue our simulation! 🔧
+ I guess now we have all we need to take our simulation to the next step! In the last page, you probably (or not) tought to yourself, well, isn't the plant population getting out of control since we don't have any animals? Yes! That's why now it's time to add herbivores to your ecosystem! Try testing different species and quantities to see the best options that fit your simulation!
  
  - Note:
-    I had a tough time trying to put persistent data across this playground, unfortunaly i didn't make it in time. So I'm going to need you to put again the number and type of plants... I hope you forgive me 😓
+    I had a tough time trying to put persistent data across this playground, unfortunaly I didn't make it in time for WWDC, sorry 😓. So I'm going to need you to put again the number and type of plants...
  */
 
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/

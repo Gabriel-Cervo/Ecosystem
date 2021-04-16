@@ -121,10 +121,17 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     public func start() {
         self.removeAllChildren()
+        clearLists()
         drawPlants(initialNumberOfPlants)
         drawHerbivores()
         drawCarnivores()
         runSpawns()
+    }
+    
+    func clearLists() {
+        plants.removeAll()
+        herbivores.removeAll()
+        carnivores.removeAll()
     }
     
     func drawPlants(_ numOfPlants: Int) {
