@@ -30,6 +30,9 @@ Herbivore is an animal that eat plant-based material (plants, algae, seeds...) a
  
  - Note:
     I had a tough time trying to put persistent data across this playground, unfortunaly I didn't make it in time for WWDC, sorry 😓. So I'm going to need you to put again the number and type of plants...
+ 
+ After you are done:
+ [Click here to advance](@next)
  */
 
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/

@@ -35,8 +35,9 @@ The plants are the biggest and one of the most diverse group of living beings on
  - Note:
     There is no error handling if you type a invalid number, so i'm gonna trust you to not break the program!
  
- * Note:
-    You can put as many plants in screen as you want, but the upper limit is 150, that way you will not have any performance issues :)
+ After you are done:
+ [Click here to advance](@next)
+
     
  */
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/

@@ -39,6 +39,8 @@ import SpriteKit
  + Note:
    If you want to see the articles used for reference, I made a list [here.](https://www.notion.so/b064038b379a403eb0d31b9ee39ebe1d?v=6ede034d4ff64a9e82702c90f102a2c2) They all have a very nice content and can be a good source to deepen your knowledge with topics not covered here 😉.
  
+ After you are done:
+ [Go to simulation](@next)
  */
 
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
