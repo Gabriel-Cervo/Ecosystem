@@ -20,7 +20,7 @@ Herbivore is an animal that eat plant-based material (plants, algae, seeds...) a
  ### Impact
  
  They have an important role in maintaining the ecosystem by preventing an overgrowth of vegetation. Many plants relies on the herbivores, like bees, to help them reproduce.
- They are termed as the primary consumers in the food cycle, since they can survive solely on plant matter. They are one of the most diverse group too! Having a group of ~4000 species.
+ They are termed as the primary consumers in the food cycle, since they can survive solely on plant matter.
  
  - Callout(See it by yourself!):
    Try naming at least 10 species of herbivores in your region, I bet you know a lot of them 😉

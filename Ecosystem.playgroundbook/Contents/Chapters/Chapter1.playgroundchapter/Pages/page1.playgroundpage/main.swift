@@ -9,9 +9,7 @@
  
  * callout(WWDC): 🙄
  
- - callout(João): Come on, i promise it will be fun!
- 
- + callout(João): But first, you may be wondering...
+ - callout(João): Come on, i promise it will be fun! But first, you may be wondering...
 
  ### What is a ecosystem and why should I even care?
  

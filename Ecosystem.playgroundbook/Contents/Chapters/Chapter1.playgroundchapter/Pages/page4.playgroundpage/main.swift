@@ -6,34 +6,39 @@ import SpriteKit
 
 /*:
  
-# Herbivores
+# Carnivores
     
-The plants are the biggest and one of the most diverse group of living beings on the planet. They are the basis of terrestrial ecosystems. Plants also provide us a substantial part of oxygen, which we need to survive, so it's important to take care of them!!
+ Carnivore is an animal that mostly eats meat or animal tissue, acquired by hunting or scavenging. Carnivores are called predators.
+  
+ - Callout(Did you know? 💡):
+     Carnivores cannot move their lower jaw from side to side. That's why you see your dog or cat doing chomping up-and-down motion when eating. This happens because of the shape of the carnivoran skull.
+  
+  ### Types
+  
+  You may think that carnivores are predators that only eat other animals. But not all of them eat *only* meat, there's different types of carnivores, as shown below:
  
-- Callout(Did you know? 💡):
-    Trees are a plant! Some people don't know this because they are big, but in fact, they are a very large plant!
+ - Obligate Carnivores -> Depend only on meat for survival, and their body cannot digest plants properly.
  
- ### Life Cycle
+ - Hipercarnivore -> Is an organism that depends on meat for at least 70% of its diet. Other nutrients make up the rest of their food, like plants or fungi. Cats are a good example of this type.
  
- Plants starts life as a seed, which germinates and grows into a plant. The mature plant produces flowers, which are fertilised and produce seeds in a fruit or seedpod. The plant eventually dies, leaving seeds which will germinate to produce new plants, and the cycle repeats itself.
+ - Mesocarnivores -> Depend on meat for at least 50% of their diet. They also eat fruits and vegetables. A good example is foxes.
  
- - Callout(Try it by yourself!):
-    Try cutting the branch of a healthy plant and put it in a suitable medium, such as moist soil. And then just wait for the plant to grow! But be aware to take good care of the plant, otherwise it will die and not grow 😓
+ - Hypocarnivores -> Depend on animals for less than 30% of their diet. Bears are a goode example, they eat meat, fish berries... the list goes on. They are also considered omnivores.
  
- ### Nutrition
+  
+  ### Impact
+  
+  They are very important to a healthy ecosystem. They keep the number of herbivores in balance so it doesn't happen a overpopulation, disrupting the entire ecosystem.
+  
+  - Callout(Don't you have one in home?):
+    Cat's are a very common house companion. Since they are carnivores, it's not very uncommon to see your cat bringing home a dead animal or trying to hunt any animal that enter's your house.
+  
+  ## It's time to complete our simulation! 🔧
+  That's it! Now you now the basics of a ecosystem. On the next chapter you will see how the simulation will in fact work and see everything interacting. But first, why not try to add some carnivores here and see which one serves your simulation best?
+  
+ + Note:
+   If you want to see the articles used for reference, I made a list [here.](https://www.notion.so/b064038b379a403eb0d31b9ee39ebe1d?v=6ede034d4ff64a9e82702c90f102a2c2) They all have a very nice content and can be a good source to deepen your knowledge with topics not covered here 😉.
  
- Plants get their nutrition from photosynthesis, that is, aborbing energy from the sun's light. There are some carnivorous plants that complements their nutrition eating little insects.
- 
- - Callout(Taking good care of a plant):
-    If you follow the last tip, try to not let your plant in the sun's light for too long, or they die! Try to maintain a good balance of time 😊. And don't forget to give water to the soil.
- 
- ## Let's start building the simulation 🔧
- Now that you know the basics of plants, I think we can start building our own ecosystem!
-    Don't worry! You don't need to know how to code, everything here will be very intuitive!
-    First, you need to put below the type of the plant you want in your ecosystem, try changing the variable below to values from 1 to 3. You can also modify the number of plants in screen to be of your liking. And then try hitting "Run my code" to see what type of plant it appears.
- 
- - Note:
-    You will need to put all information again, sorry... 😓. But it's the... okay, not the last time, but we are almost there!
  */
 
 var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
@@ -45,7 +50,6 @@ var numberOfHerbivoresInScreen: Int = /*#-editable-code*/<#T##Number of herbivor
 
 var typeOfCarnivore: Int = /*#-editable-code*/<#T##Type of carnivore (1 to 3)##Int#>/*#-end-editable-code*/
 var numberOfCarnivoresInScreen: Int = /*#-editable-code*/<#T##Number of carnivores##Int#>/*#-end-editable-code*/
-
 
 
 //#-hidden-code
