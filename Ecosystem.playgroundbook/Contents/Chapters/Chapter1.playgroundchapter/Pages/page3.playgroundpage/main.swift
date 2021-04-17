@@ -29,7 +29,7 @@ Herbivore is an animal that eat plant-based material (plants, algae, seeds...) a
  I guess now we have all we need to take our simulation to the next step! In the last page, you probably (or not) tought to yourself, well, isn't the plant population getting out of control since we don't have any animals? Yes! That's why now it's time to test herbivores to add for your ecosystem! Try testing different species and quantities to see the best options that fit your simulation!
  
  + Callout(Limits):
-    The limit for herbivores is 100.
+    The limit for number of herbivores is 100.
  
  After you are done:
  [Click here to advance](@next)
