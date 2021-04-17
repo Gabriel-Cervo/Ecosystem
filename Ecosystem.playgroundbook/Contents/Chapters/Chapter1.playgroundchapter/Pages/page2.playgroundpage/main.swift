@@ -43,10 +43,8 @@ The plants are the biggest and one of the most diverse group of living beings on
 
     
  */
-var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
+var typeOfPlant: FlowerType = /*#-editable-code*/<#T##.grass | .herb | .flower##FlowerType#>/*#-end-editable-code*/
 var numberOfPlantsInScreen: Int = /*#-editable-code*/<#T##Number of plants##Int#>/*#-end-editable-code*/
-
-
 
 //#-hidden-code
 public func startSystem() {
@@ -54,7 +52,9 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen)]))
+    let plantType = getPlantTypeInInt(typeOfPlant)
+    
+    remoteView.send(.dictionary(["plantType": .integer(plantType), "numberOfPlants": .integer(numberOfPlantsInScreen)]))
 }
 
 startSystem()

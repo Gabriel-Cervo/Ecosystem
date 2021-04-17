@@ -17,11 +17,12 @@ public class SimulationViewController: UIViewController {
 extension SimulationViewController: PlaygroundLiveViewMessageHandler {
     public func receive(_ message: PlaygroundValue) {
         guard case let .dictionary(info) = message else { return }
-        guard case let .integer(typeOfPlant) = info["plantType"] else { return }
-        guard case let .integer(numberOfPlantsInScreen) = info["numberOfPlants"] else { return }
-
-        scene.initialNumberOfPlants = numberOfPlantsInScreen
-        scene.typeOfPlant = typeOfPlant
+        
+        if case let .integer(typeOfPlant) = info["plantType"], case let .integer(numberOfPlantsInScreen) = info["numberOfPlants"] {
+            scene.typeOfPlant = typeOfPlant
+            scene.initialNumberOfPlants = numberOfPlantsInScreen
+        }
+               
         
         if case let .integer(typeOfHerbivore) = info["herbivoreType"], case let .integer(numberOfHerbivores) = info["numberOfHerbivores"] {
                 scene.typeOfHerbivore = typeOfHerbivore

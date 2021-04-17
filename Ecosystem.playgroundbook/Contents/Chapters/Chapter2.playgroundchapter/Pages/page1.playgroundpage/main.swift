@@ -27,20 +27,23 @@ Know that you learned everything from here, we can start simulating our ecosyste
  
  - Note:
     The limits for plants is 250. For herbivores and carnivores is 100. But I think you already saw that this is too much...
+ 
+ - Note:
+    I had a tough time trying to put persistent data across this playground, unfortunaly I didn't make it in time for WWDC, sorry 😓. So I'm going to need you to put again your prefered plants and animals...
 
  + Callout(João):
     Hey, WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject spoken here. Take care and good luck in the simulation!
 */
 
-var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
+var typeOfPlant: FlowerType = /*#-editable-code*/<#T##.grass | .herb | .flower##FlowerType#>/*#-end-editable-code*/
 var numberOfPlantsInScreen: Int = /*#-editable-code*/<#T##Number of plants##Int#>/*#-end-editable-code*/
 
 
-var typeOfHerbivore: Int = /*#-editable-code*/<#T##Type of herbivore (1 to 3)##Int#>/*#-end-editable-code*/
+var typeOfHerbivore: HerbivoreType = /*#-editable-code*/<#T##.capybara | .rabbit | .zebra##HerbivoreType#>/*#-end-editable-code*/
 var numberOfHerbivoresInScreen: Int = /*#-editable-code*/<#T##Number of herbivores##Int#>/*#-end-editable-code*/
 
 
-var typeOfCarnivore: Int = /*#-editable-code*/<#T##Type of carnivore (1 to 3)##Int#>/*#-end-editable-code*/
+var typeOfCarnivore: CarnivoreType = /*#-editable-code*/<#T##.jaguar | .snake | .wolf##CarnivoreType#>/*#-end-editable-code*/
 var numberOfCarnivoresInScreen: Int = /*#-editable-code*/<#T##Number of carnivores##Int#>/*#-end-editable-code*/
 
 
@@ -53,7 +56,11 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen), "herbivoreType": .integer(typeOfHerbivore), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen), "carnivoreType": .integer(typeOfCarnivore), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen), "startSimulation": .boolean(runSimulation)]))
+    let plantType = getPlantTypeInInt(typeOfPlant)
+    let herbivoreType = getHerbivoreTypeInInt(typeOfHerbivore)
+    let carnivoreType = getCarnivoreTypeInInt(typeOfCarnivore)
+
+    remoteView.send(.dictionary(["plantType": .integer(plantType), "numberOfPlants": .integer(numberOfPlantsInScreen), "herbivoreType": .integer(herbivoreType), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen), "carnivoreType": .integer(carnivoreType), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen), "startSimulation": .boolean(runSimulation)]))
     
 }
 

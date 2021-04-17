@@ -37,7 +37,7 @@ import SpriteKit
   That's it! Now you now the basics of a ecosystem. On the next chapter you will see how the simulation will in fact work and see everything interacting. But first, why not try to add some carnivores here and see which one serves your simulation best?
  
  - Note:
-    The limits for plants is 250. For herbivores and carnivores is 100.
+    The limit for carnivores is 100.
   
  + Note:
    If you want to see the articles used for reference, I made a list [here.](https://www.notion.so/b064038b379a403eb0d31b9ee39ebe1d?v=6ede034d4ff64a9e82702c90f102a2c2) They all have a very nice content and can be a good source to deepen your knowledge with topics not covered here 😉.
@@ -46,14 +46,7 @@ import SpriteKit
  [Go to simulation](@next)
  */
 
-var typeOfPlant: Int = /*#-editable-code*/<#T##Type of Plant (1 to 3)##Int#>/*#-end-editable-code*/
-var numberOfPlantsInScreen: Int = /*#-editable-code*/<#T##Number of plants##Int#>/*#-end-editable-code*/
-
-
-var typeOfHerbivore: Int = /*#-editable-code*/<#T##Type of herbivore (1 to 3)##Int#>/*#-end-editable-code*/
-var numberOfHerbivoresInScreen: Int = /*#-editable-code*/<#T##Number of herbivores##Int#>/*#-end-editable-code*/
-
-var typeOfCarnivore: Int = /*#-editable-code*/<#T##Type of carnivore (1 to 3)##Int#>/*#-end-editable-code*/
+var typeOfCarnivore: CarnivoreType = /*#-editable-code*/<#T##.jaguar | .snake | .wolf##CarnivoreType#>/*#-end-editable-code*/
 var numberOfCarnivoresInScreen: Int = /*#-editable-code*/<#T##Number of carnivores##Int#>/*#-end-editable-code*/
 
 
@@ -63,7 +56,9 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    remoteView.send(.dictionary(["plantType": .integer(typeOfPlant), "numberOfPlants": .integer(numberOfPlantsInScreen), "herbivoreType": .integer(typeOfHerbivore), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen), "carnivoreType": .integer(typeOfCarnivore), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen)]))
+    let carnivoreType = getCarnivoreTypeInInt(typeOfCarnivore)
+    
+    remoteView.send(.dictionary(["carnivoreType": .integer(carnivoreType), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen)]))
     
 }
 

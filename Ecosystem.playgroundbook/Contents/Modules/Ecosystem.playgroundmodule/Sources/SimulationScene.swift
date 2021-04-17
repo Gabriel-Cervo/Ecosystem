@@ -1,5 +1,4 @@
 import SpriteKit
-import GameplayKit
 
 public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDelegate {
     var plants: [Plant] = []
