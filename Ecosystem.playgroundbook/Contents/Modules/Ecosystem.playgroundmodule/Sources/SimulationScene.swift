@@ -240,7 +240,7 @@ public class SimulationScene: SKScene, SKPhysicsContactDelegate, AnimalStateDele
     
     func runSpawns() {
         if runSimulation {
-            let wait = SKAction.wait(forDuration: 3)
+            let wait = SKAction.wait(forDuration: 1)
             let update = SKAction.run({ self.drawPlants(2) })
             let group1 = SKAction.sequence([wait, update])
             
