@@ -7,9 +7,9 @@ var previousPlantType: FlowerType = .grass
 var previousHerbivoreType: HerbivoreType = .capybara
 var previousCarnivoreType: CarnivoreType = .jaguar
 
-var previousNumberOfPlants: Int = 0
-var previousNumberOfHerbivores: Int = 0
-var previousNumberOfCarnivores: Int = 0
+var previousNumberOfPlants: Int = 50
+var previousNumberOfHerbivores: Int = 15
+var previousNumberOfCarnivores: Int = 4
 
 func loadTypes() {
     if let typeOfPlant = PlaygroundKeyValueStore.current["plantType"],
@@ -108,14 +108,15 @@ Now that you learned everything from here, we can start simulating our ecosystem
     Hey, WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject on this topic. Take care and good luck in the simulation!
 */
 
+// You can use the value you defined earlier or one of .grass, .herb or .flower
 var typeOfPlant: FlowerType = /*#-editable-code*/previousPlantType/*#-end-editable-code*/
 var numberOfPlantsInScreen: Int = /*#-editable-code*/previousNumberOfPlants/*#-end-editable-code*/
 
-
+// You can use the value you defined earlier or one of .capybara, .rabbit or .zebra
 var typeOfHerbivore: HerbivoreType = /*#-editable-code*/previousHerbivoreType/*#-end-editable-code*/
 var numberOfHerbivoresInScreen: Int = /*#-editable-code*/previousNumberOfHerbivores/*#-end-editable-code*/
 
-
+// You can use the value you defined earlier or one of .jaguar, .snake or .wolf
 var typeOfCarnivore: CarnivoreType = /*#-editable-code*/previousCarnivoreType/*#-end-editable-code*/
 var numberOfCarnivoresInScreen: Int = /*#-editable-code*/previousNumberOfCarnivores/*#-end-editable-code*/
 
