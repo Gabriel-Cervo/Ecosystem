@@ -2,6 +2,79 @@
 import PlaygroundSupport
 import Ecosystem
 import SpriteKit
+
+var previousPlantType: FlowerType = .grass
+var previousHerbivoreType: HerbivoreType = .capybara
+var previousCarnivoreType: CarnivoreType = .jaguar
+
+var previousNumberOfPlants: Int = 0
+var previousNumberOfHerbivores: Int = 0
+var previousNumberOfCarnivores: Int = 0
+
+func loadTypes() {
+    if let typeOfPlant = PlaygroundKeyValueStore.current["plantType"],
+        case .integer(let type) = typeOfPlant {
+        switch type {
+        case 1:
+            previousPlantType = FlowerType.grass
+        case 2:
+            previousPlantType = FlowerType.herb
+        case 3:
+            previousPlantType = FlowerType.flower
+        default:
+            previousPlantType = FlowerType.grass
+        }
+    }
+    
+    if let typeOfHerbivore = PlaygroundKeyValueStore.current["herbivoreType"],
+        case .integer(let type) = typeOfHerbivore {
+        switch type {
+        case 1:
+            previousHerbivoreType = HerbivoreType.capybara
+        case 2:
+            previousHerbivoreType = HerbivoreType.rabbit
+        case 3:
+            previousHerbivoreType = HerbivoreType.zebra
+        default:
+            previousHerbivoreType = HerbivoreType.capybara
+        }
+    }
+    
+    if let typeOfCarnivore = PlaygroundKeyValueStore.current["carnivoreType"],
+        case .integer(let type) = typeOfCarnivore {
+        switch type {
+        case 1:
+            previousCarnivoreType = CarnivoreType.jaguar
+        case 2:
+            previousCarnivoreType = CarnivoreType.snake
+        case 3:
+            previousCarnivoreType = CarnivoreType.wolf
+        default:
+            previousCarnivoreType = CarnivoreType.jaguar
+        }
+    }
+}
+
+func loadNumbers() {
+    if let numberOfPlants = PlaygroundKeyValueStore.current["numberOfPlants"],
+        case .integer(let nPlants) = numberOfPlants {
+        previousNumberOfPlants = nPlants
+    }
+
+    if let numberOfHerbivores = PlaygroundKeyValueStore.current["numberOfHerbivores"],
+        case .integer(let nHerbivores) = numberOfHerbivores {
+        previousNumberOfHerbivores = nHerbivores
+    }
+
+    if let numberOfCarnivores = PlaygroundKeyValueStore.current["numberOfCarnivores"],
+        case .integer(let nCarnivores) = numberOfCarnivores {
+        previousNumberOfCarnivores = nCarnivores
+    }
+}
+
+loadTypes()
+loadNumbers()
+    
 //#-end-hidden-code
 
 /*:
@@ -29,25 +102,25 @@ Now that you learned everything from here, we can start simulating our ecosystem
     The limits for the number of plants is 250. For herbivores and carnivores it's 100. But I think you already saw that this is too much...
  
  - Note:
-    I had a tough time trying to put persistent data across this playground, unfortunaly I didn't make it in time for WWDC, sorry 😓. So I'm going to need you to put again your prefered plants and animals...
+    The code will automatically load your previous choices. So you don't need to modify the variables unless you want to change something 😉
 
  + Callout(João):
     Hey, WWDC! Thank you for taking your time to see this playground. Hope I have been able to encourage you to look for more info on the subject on this topic. Take care and good luck in the simulation!
 */
 
-var typeOfPlant: FlowerType = /*#-editable-code*/<#T##.grass | .herb | .flower##FlowerType#>/*#-end-editable-code*/
-var numberOfPlantsInScreen: Int = /*#-editable-code*/<#T##Number of plants##Int#>/*#-end-editable-code*/
+var typeOfPlant: FlowerType = /*#-editable-code*/previousPlantType/*#-end-editable-code*/
+var numberOfPlantsInScreen: Int = /*#-editable-code*/previousNumberOfPlants/*#-end-editable-code*/
 
 
-var typeOfHerbivore: HerbivoreType = /*#-editable-code*/<#T##.capybara | .rabbit | .zebra##HerbivoreType#>/*#-end-editable-code*/
-var numberOfHerbivoresInScreen: Int = /*#-editable-code*/<#T##Number of herbivores##Int#>/*#-end-editable-code*/
+var typeOfHerbivore: HerbivoreType = /*#-editable-code*/previousHerbivoreType/*#-end-editable-code*/
+var numberOfHerbivoresInScreen: Int = /*#-editable-code*/previousNumberOfHerbivores/*#-end-editable-code*/
 
 
-var typeOfCarnivore: CarnivoreType = /*#-editable-code*/<#T##.jaguar | .snake | .wolf##CarnivoreType#>/*#-end-editable-code*/
-var numberOfCarnivoresInScreen: Int = /*#-editable-code*/<#T##Number of carnivores##Int#>/*#-end-editable-code*/
+var typeOfCarnivore: CarnivoreType = /*#-editable-code*/previousCarnivoreType/*#-end-editable-code*/
+var numberOfCarnivoresInScreen: Int = /*#-editable-code*/previousNumberOfCarnivores/*#-end-editable-code*/
 
 
-var runSimulation: Bool = /*#-editable-code*/<#T##true or false##Bool#>/*#-end-editable-code*/
+var runSimulation: Bool = /*#-editable-code*/true/*#-end-editable-code*/
 
 
 //#-hidden-code

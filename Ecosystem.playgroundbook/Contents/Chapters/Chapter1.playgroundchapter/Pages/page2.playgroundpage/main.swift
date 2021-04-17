@@ -51,6 +51,9 @@ public func startSystem() {
     
     let plantType = getPlantTypeInInt(typeOfPlant)
     
+    PlaygroundKeyValueStore.current["plantType"] = .integer(plantType)
+    PlaygroundKeyValueStore.current["numberOfPlants"] = .integer(numberOfPlantsInScreen)
+    
     remoteView.send(.dictionary(["plantType": .integer(plantType), "numberOfPlants": .integer(numberOfPlantsInScreen)]))
 }
 

@@ -55,8 +55,10 @@ public func startSystem() {
     
     let carnivoreType = getCarnivoreTypeInInt(typeOfCarnivore)
     
-    remoteView.send(.dictionary(["carnivoreType": .integer(carnivoreType), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen)]))
+    PlaygroundKeyValueStore.current["carnivoreType"] = .integer(carnivoreType)
+    PlaygroundKeyValueStore.current["numberOfCarnivores"] = .integer(numberOfCarnivoresInScreen)
     
+    remoteView.send(.dictionary(["carnivoreType": .integer(carnivoreType), "numberOfCarnivores": .integer(numberOfCarnivoresInScreen)]))
 }
 
 startSystem()

@@ -45,7 +45,10 @@ public func startSystem() {
         fatalError("Always-on live view not configured in this page's LiveView.swift")
     }
     
-    let herbivoreType = getHerbivoreTypeInInt(typeOfHerbivore)
+     let herbivoreType = getHerbivoreTypeInInt(typeOfHerbivore)
+    
+    PlaygroundKeyValueStore.current["herbivoreType"] = .integer(herbivoreType)
+    PlaygroundKeyValueStore.current["numberOfHerbivores"] = .integer(numberOfHerbivoresInScreen)
         
     remoteView.send(.dictionary(["herbivoreType": .integer(herbivoreType), "numberOfHerbivores": .integer(numberOfHerbivoresInScreen)]))
 }
