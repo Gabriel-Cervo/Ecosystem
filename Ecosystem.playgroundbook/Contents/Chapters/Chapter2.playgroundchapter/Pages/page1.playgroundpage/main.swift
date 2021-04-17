@@ -25,7 +25,7 @@ Know that you learned everything from here, we can start simulating our ecosyste
  Very simple, huh? The key here is to balance the number between each type of animals and plants, not letting the ecosystem get unbalanced.
  The simulation is all yours now! Enjoy testing new combations of animals and plants!
  
- - Note:
+ + Callout(Limits):
     The limits for the number of plants is 250. For herbivores and carnivores is 100. But I think you already saw that this is too much...
  
  - Note:

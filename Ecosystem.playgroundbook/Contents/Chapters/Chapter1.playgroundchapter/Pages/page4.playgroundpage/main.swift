@@ -37,7 +37,7 @@ import SpriteKit
   That's it! Now you now the basics of a ecosystem. On the next chapter you will see how the simulation will in fact work and see everything interacting. But first, why not try to add some carnivores here and see which one serves your simulation best?
  
  + Callout(Limits):
-    The limit for number of carnivores is 100
+    The limit for the number of carnivores is 100.
   
  + Note:
    If you want to see the articles used for reference, I made a list [here.](https://www.notion.so/b064038b379a403eb0d31b9ee39ebe1d?v=6ede034d4ff64a9e82702c90f102a2c2) They all have a very nice content and can be a good source to deepen your knowledge with topics not covered here 😉.
